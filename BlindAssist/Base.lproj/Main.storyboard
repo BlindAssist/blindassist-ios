@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-eS-1Ub" customClass="CameraPreviewView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="414"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jxg-8L-Fjc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="414"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yhJ-eS-1Ub" secondAttribute="bottom" constant="253" id="7Lb-Zk-y8h"/>
+                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H9A-VS-wWd"/>
+                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="bottom" secondItem="yhJ-eS-1Ub" secondAttribute="bottom" id="Y2v-sI-6YI"/>
+                            <constraint firstAttribute="trailing" secondItem="yhJ-eS-1Ub" secondAttribute="trailing" id="anq-Jd-55N"/>
+                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="top" secondItem="yhJ-eS-1Ub" secondAttribute="top" id="bie-mH-dJ3"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="leading" secondItem="Jxg-8L-Fjc" secondAttribute="leading" id="emS-fR-PEA"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="l0S-Ar-XNa"/>
+                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="trailing" secondItem="yhJ-eS-1Ub" secondAttribute="trailing" id="vyd-B6-R85"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="cameraPreview" destination="yhJ-eS-1Ub" id="jJg-kN-i13"/>
+                        <outlet property="predictionView" destination="Jxg-8L-Fjc" id="fVJ-i6-shh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
