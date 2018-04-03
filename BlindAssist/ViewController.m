@@ -12,9 +12,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self predictionView].transform = CGAffineTransformScale([self predictionView].transform, -1, 1);
-    [self setTts:[[AVSpeechSynthesizer alloc] init]];
     
+    [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
     
     VNCoreMLModel *model = [VNCoreMLModel modelForMLModel: [[[cityscapes alloc] init] model] error:nil];
@@ -116,7 +115,7 @@
     CGImageRef cgImage = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
     
-    UIImage *image = [UIImage imageWithCGImage:cgImage scale:0 orientation:UIImageOrientationUpMirrored];
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
     
     dispatch_async(dispatch_get_main_queue(), ^{
