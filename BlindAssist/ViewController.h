@@ -9,9 +9,9 @@
 #include "CameraPreviewView.h"
 
 struct Color {
-    int r;
-    int g;
-    int b;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
 };
 
 static struct Color colors[] = {

@@ -62,7 +62,6 @@
     
     AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
     
-    // TODO FIX ME
     dispatch_async(dispatch_get_main_queue(), ^{
         [[self cameraPreview] addCaptureVideoPreviewLayer:previewLayer];
     });
@@ -84,48 +83,48 @@
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
     // Shape of MLMultiArray is sequence length, batch, channels, height and width
-    int channels = multiArray.shape[2].intValue;
-    int height = multiArray.shape[3].intValue;
-    int width = multiArray.shape[4].intValue;
+    uint8_t channels = multiArray.shape[2].intValue;
+    uint8_t height = multiArray.shape[3].intValue;
+    uint8_t width = multiArray.shape[4].intValue;
     
     // Holds the segmented image
-    int bytes [height * width * 4];
+    uint8_t bytes [height * width * 4];
     
-    double *pointer = (double *) multiArray.dataPointer;
+    double *pointer = (double*) multiArray.dataPointer;
     
-    int cStride = multiArray.strides[2].intValue;
-    int hStride = multiArray.strides[3].intValue;
-    int wStride = multiArray.strides[4].intValue;
+    uint32_t cStride = multiArray.strides[2].intValue;
+    uint16_t hStride = multiArray.strides[3].intValue;
+    uint8_t wStride = multiArray.strides[4].intValue;
     
-    for (int h = 0; h < height; h++) {
-        for (int w = 0; w < width; w++) {
-            int highestClass = 0;
+    for (uint16_t h = 0; h < height; h++) {
+        for (uint16_t w = 0; w < width; w++) {
+            uint8_t highestClass = 0;
             double highest = -DBL_MAX;
-            for (int c = 0; c < channels; c++) {
-                int offset = c * cStride + h * hStride + w * wStride;
+            for (uint8_t c = 0; c < channels; c++) {
+                uint32_t offset = c * cStride + h * hStride + w * wStride;
                 double score = pointer[offset];
                 if (score > highest) {
                     highestClass = c;
                     highest = score;
                 }
             }
-            int offset = h * width * 4 + w * 4;
+            uint32_t offset = h * width * 4 + w * 4;
             struct Color rgba = colors[highestClass];
             bytes[offset + 0] = (rgba.r);
             bytes[offset + 1] = (rgba.g);
             bytes[offset + 2] = (rgba.b);
-            bytes[offset + 3] = (127); // semi transparent
+            bytes[offset + 3] = (255 / 2); // semi transparent
         }
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(bytes, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrderDefault);
+    CGContextRef context = CGBitmapContextCreate(bytes, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast);
     CFRelease(colorSpace);
-    free(bytes);
+    //free(bytes);
     CGImageRef cgImage = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
     
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    UIImage *image = [UIImage imageWithCGImage:cgImage scale:0 orientation:UIImageOrientationUpMirrored];
     CGImageRelease(cgImage);
     
     dispatch_async(dispatch_get_main_queue(), ^{
