@@ -6,10 +6,14 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <Vision/Vision.h>
+#import <AVFoundation/AVFoundation.h>
 #import <CoreML/CoreML.h>
+#import <UIKit/UIKit.h>
+#import <Vision/Vision.h>
+
 #import "cityscapes.h"
 
+#include "Utils.h"
 #include "ViewController.h"
 
 @implementation ViewController
@@ -70,7 +74,7 @@
 -(void)deviceOrientationDidChange {
     for (AVCaptureOutput *output in [self session].outputs) {
         for (AVCaptureConnection *connection in output.connections) {
-            connection.videoOrientation = [self cameraPreview].getVideoOrientation;
+            connection.videoOrientation = [Utils getVideoOrientation];
         }
     }
 }
@@ -96,7 +100,7 @@
     for (int h = 0; h < height; h++) {
         for (int w = 0; w < width; w++) {
             int highestClass = 0;
-            double highest = DBL_MIN;
+            double highest = -DBL_MAX;
             for (int c = 0; c < channels; c++) {
                 int offset = c * cStride + h * hStride + w * wStride;
                 double score = pointer[offset];

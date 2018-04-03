@@ -6,8 +6,8 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CameraPreviewView : UIView
 
@@ -20,7 +20,5 @@
 - (void)layoutSubviews;
 
 - (void)orientationChanged:(NSNotification*) notification;
-
-- (AVCaptureVideoOrientation)getVideoOrientation;
 
 @end

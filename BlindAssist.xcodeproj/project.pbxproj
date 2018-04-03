@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A153DB9B207352DD00645AA0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A153DB9A207352DD00645AA0 /* Utils.m */; };
 		A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43A72070D11C0030848D /* AppDelegate.m */; };
 		A1BF43AB2070D11C0030848D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43AA2070D11C0030848D /* ViewController.m */; };
 		A1BF43B02070D11E0030848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43AF2070D11E0030848D /* Assets.xcassets */; };
@@ -18,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A153DB9A207352DD00645AA0 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
+		A153DB9D2073561000645AA0 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A1BF43A32070D11C0030848D /* BlindAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BF43A62070D11C0030848D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1BF43A72070D11C0030848D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -69,6 +72,8 @@
 				A1BF43BE2070D1540030848D /* CameraPreviewView.m */,
 				A1BF43A92070D11C0030848D /* ViewController.h */,
 				A1BF43AA2070D11C0030848D /* ViewController.m */,
+				A153DB9D2073561000645AA0 /* Utils.h */,
+				A153DB9A207352DD00645AA0 /* Utils.m */,
 				A1BF43BC2070D1540030848D /* cityscapes.mlmodel */,
 				A1BF43AF2070D11E0030848D /* Assets.xcassets */,
 				A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */,
@@ -152,6 +157,7 @@
 				A1BF43AB2070D11C0030848D /* ViewController.m in Sources */,
 				A1BF43C02070D1540030848D /* CameraPreviewView.m in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
+				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
 				A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */,
 			);

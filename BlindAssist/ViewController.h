@@ -6,9 +6,6 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
-
 #include "CameraPreviewView.h"
 
 struct Color {
@@ -36,7 +33,7 @@ static struct Color colors[] = {
     {.r = 0,   .g = 60,  .b = 100}, // bus
     {.r = 0,   .g = 80,  .b = 100}, // train
     {.r = 0,   .g = 0,   .b = 230}, // motorcycle
-    {.r = 119, .g = 11,  .b = 32 } // bycycle
+    {.r = 119, .g = 11,  .b = 32 }  // bycycle
 };
 
 @interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>

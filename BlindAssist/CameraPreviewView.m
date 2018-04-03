@@ -6,9 +6,8 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 #include "CameraPreviewView.h"
+#include "Utils.h"
 
 @implementation CameraPreviewView
 
@@ -24,43 +23,20 @@
 
 // Insert layer at index 0
 - (void)addCaptureVideoPreviewLayer:(AVCaptureVideoPreviewLayer*) previewLayer {
-    [_previewLayer removeFromSuperlayer];
+    [[self previewLayer] removeFromSuperlayer];
     [[self layer] insertSublayer:previewLayer atIndex:0];
-    _previewLayer = previewLayer;
-    _previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    [self setPreviewLayer:(previewLayer)];
+    [self previewLayer].videoGravity = AVLayerVideoGravityResizeAspectFill;
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    _previewLayer.frame = [super bounds];
+    [self previewLayer].frame = [super bounds];
 }
 
 // Change video orientation to always display video in correct orientation
 - (void)orientationChanged:(NSNotification*) notification {
-    _previewLayer.connection.videoOrientation = [self getVideoOrientation];
-}
-
-- (AVCaptureVideoOrientation) getVideoOrientation {
-    AVCaptureVideoOrientation orientation;
-    UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
-    switch (deviceOrientation) {
-        case UIDeviceOrientationPortrait:
-            orientation = AVCaptureVideoOrientationPortrait;
-            break;
-        case UIDeviceOrientationPortraitUpsideDown:
-            orientation = AVCaptureVideoOrientationPortraitUpsideDown;
-            break;
-        case UIDeviceOrientationLandscapeLeft:
-            orientation = AVCaptureVideoOrientationLandscapeRight;
-            break;
-        case UIDeviceOrientationLandscapeRight:
-            orientation = AVCaptureVideoOrientationLandscapeLeft;
-            break;
-        default:
-            orientation = AVCaptureVideoOrientationPortrait;
-            break;
-    }
-    return orientation;
+    [self previewLayer].connection.videoOrientation = [Utils getVideoOrientation];
 }
 
 @end
