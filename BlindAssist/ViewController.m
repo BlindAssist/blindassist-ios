@@ -6,14 +6,6 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
-#import <CoreML/CoreML.h>
-#import <UIKit/UIKit.h>
-#import <Vision/Vision.h>
-
-#import "cityscapes.h"
-
-#include "Utils.h"
 #include "ViewController.h"
 
 @implementation ViewController

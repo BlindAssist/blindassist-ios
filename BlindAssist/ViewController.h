@@ -6,7 +6,16 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
+#import <Accelerate/Accelerate.h>
+#import <AVFoundation/AVFoundation.h>
+#import <CoreML/CoreML.h>
+#import <UIKit/UIKit.h>
+#import <Vision/Vision.h>
+
+#import "cityscapes.h"
+
 #include "CameraPreviewView.h"
+#include "Utils.h"
 
 struct Color {
     uint8_t r;
