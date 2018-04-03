@@ -19,22 +19,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhJ-eS-1Ub" customClass="CameraPreviewView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="414"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Jxg-8L-Fjc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="414"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                             </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yhJ-eS-1Ub" secondAttribute="bottom" constant="253" id="7Lb-Zk-y8h"/>
-                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="H9A-VS-wWd"/>
-                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="bottom" secondItem="yhJ-eS-1Ub" secondAttribute="bottom" id="Y2v-sI-6YI"/>
-                            <constraint firstAttribute="trailing" secondItem="yhJ-eS-1Ub" secondAttribute="trailing" id="anq-Jd-55N"/>
-                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="top" secondItem="yhJ-eS-1Ub" secondAttribute="top" id="bie-mH-dJ3"/>
-                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="leading" secondItem="Jxg-8L-Fjc" secondAttribute="leading" id="emS-fR-PEA"/>
-                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="l0S-Ar-XNa"/>
-                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="trailing" secondItem="yhJ-eS-1Ub" secondAttribute="trailing" id="vyd-B6-R85"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Jxg-8L-Fjc" secondAttribute="bottom" constant="292" id="1Od-GF-WyM"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="5da-5K-Pnj"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="trailing" secondItem="Jxg-8L-Fjc" secondAttribute="trailing" id="AR4-Rf-xCc"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="top" secondItem="Jxg-8L-Fjc" secondAttribute="top" id="Bhk-CU-eDo"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="bottom" secondItem="Jxg-8L-Fjc" secondAttribute="bottom" id="C0O-i9-Dnl"/>
+                            <constraint firstItem="yhJ-eS-1Ub" firstAttribute="leading" secondItem="Jxg-8L-Fjc" secondAttribute="leading" id="bid-dQ-UFY"/>
+                            <constraint firstAttribute="trailing" secondItem="Jxg-8L-Fjc" secondAttribute="trailing" id="nFj-PF-szC"/>
+                            <constraint firstItem="Jxg-8L-Fjc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="rLO-rp-1AJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -45,6 +45,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="96.7016491754123"/>
         </scene>
     </scenes>
 </document>
