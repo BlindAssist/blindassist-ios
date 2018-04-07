@@ -75,8 +75,8 @@
     
     // Shape of MLMultiArray is sequence length, batch, channels, height and width
     uint8_t channels = multiArray.shape[2].intValue;
-    uint8_t height = multiArray.shape[3].intValue;
-    uint8_t width = multiArray.shape[4].intValue;
+    uint16_t height = multiArray.shape[3].intValue;
+    uint16_t width = multiArray.shape[4].intValue;
     
     // Holds the segmented image
     uint8_t bytes [height * width * 4];
@@ -111,11 +111,10 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(bytes, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast);
     CFRelease(colorSpace);
-    //free(bytes);
     CGImageRef cgImage = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
     
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    UIImage *image = [UIImage imageWithCGImage:cgImage scale:0 orientation:UIImageOrientationUp];
     CGImageRelease(cgImage);
     
     dispatch_async(dispatch_get_main_queue(), ^{
