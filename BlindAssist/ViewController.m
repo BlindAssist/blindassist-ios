@@ -74,32 +74,32 @@
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
     // Shape of MLMultiArray is sequence length, batch, channels, height and width
-    uint8_t channels = multiArray.shape[2].intValue;
-    uint16_t height = multiArray.shape[3].intValue;
-    uint16_t width = multiArray.shape[4].intValue;
+    unsigned channels = multiArray.shape[2].intValue;
+    unsigned height = multiArray.shape[3].intValue;
+    unsigned width = multiArray.shape[4].intValue;
     
     // Holds the segmented image
-    uint8_t bytes [height * width * 4];
-    
+    uint8_t *bytes = (uint8_t*)malloc(width*height*4);
+
     double *pointer = (double*) multiArray.dataPointer;
     
-    uint32_t cStride = multiArray.strides[2].intValue;
-    uint16_t hStride = multiArray.strides[3].intValue;
-    uint8_t wStride = multiArray.strides[4].intValue;
+    unsigned cStride = multiArray.strides[2].intValue;
+    unsigned hStride = multiArray.strides[3].intValue;
+    unsigned wStride = multiArray.strides[4].intValue;
     
-    for (uint16_t h = 0; h < height; h++) {
-        for (uint16_t w = 0; w < width; w++) {
-            uint8_t highestClass = 0;
+    for (unsigned h = 0; h < height; h++) {
+        for (unsigned w = 0; w < width; w++) {
+            unsigned highestClass = 0;
             double highest = -DBL_MAX;
-            for (uint8_t c = 0; c < channels; c++) {
-                uint32_t offset = c * cStride + h * hStride + w * wStride;
+            for (unsigned c = 0; c < channels; c++) {
+                unsigned offset = c * cStride + h * hStride + w * wStride;
                 double score = pointer[offset];
                 if (score > highest) {
                     highestClass = c;
                     highest = score;
                 }
             }
-            uint32_t offset = h * width * 4 + w * 4;
+            unsigned offset = h * width * 4 + w * 4;
             struct Color rgba = colors[highestClass];
             bytes[offset + 0] = (rgba.r);
             bytes[offset + 1] = (rgba.g);
@@ -120,6 +120,8 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         [[self predictionView] setImage:image];
     });
+    
+    free(bytes);
 }
 
 -(void)speak:(NSString*) string  {
