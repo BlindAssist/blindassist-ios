@@ -6,7 +6,6 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <Accelerate/Accelerate.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreML/CoreML.h>
 #import <UIKit/UIKit.h>
