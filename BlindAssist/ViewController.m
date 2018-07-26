@@ -74,18 +74,18 @@
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
     // Shape of MLMultiArray is sequence length, batch, channels, height and width
-    unsigned channels = multiArray.shape[2].intValue;
-    unsigned height = multiArray.shape[3].intValue;
-    unsigned width = multiArray.shape[4].intValue;
+    unsigned channels = multiArray.shape[0].intValue;
+    unsigned height = multiArray.shape[1].intValue;
+    unsigned width = multiArray.shape[2].intValue;
     
     // Holds the segmented image
     uint8_t *bytes = (uint8_t*)malloc(width*height*4);
 
     double *pointer = (double*) multiArray.dataPointer;
     
-    unsigned cStride = multiArray.strides[2].intValue;
-    unsigned hStride = multiArray.strides[3].intValue;
-    unsigned wStride = multiArray.strides[4].intValue;
+    unsigned cStride = multiArray.strides[0].intValue;
+    unsigned hStride = multiArray.strides[1].intValue;
+    unsigned wStride = multiArray.strides[2].intValue;
     
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
