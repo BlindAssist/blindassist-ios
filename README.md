@@ -3,7 +3,7 @@ BlindAssist is an iOS application which has the goal to support blind people
 on the road. Since I have a blind brother, I decided to create this open source
 project.
 
-The assisting process will be done using deap learning, image segmentation
+The assisting process will be done using deep learning, image segmentation
 and translating the inference results to sentences which will be spoken out loud 
 by tts (text to speech).
 
