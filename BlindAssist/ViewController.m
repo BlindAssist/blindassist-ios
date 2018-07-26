@@ -73,7 +73,7 @@
     NSArray *results = [request.results copy];
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
-    // Shape of MLMultiArray is sequence length, batch, channels, height and width
+    // Shape of MLMultiArray is sequence: channels, height and width
     unsigned channels = multiArray.shape[0].intValue;
     unsigned height = multiArray.shape[1].intValue;
     unsigned width = multiArray.shape[2].intValue;
