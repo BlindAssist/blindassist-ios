@@ -6,6 +6,9 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
+#ifndef BLINDASSIST_VIEW_CONTROLLER_H
+#define BLINDASSIST_VIEW_CONTROLLER_H
+
 #import <AVFoundation/AVFoundation.h>
 #import <CoreML/CoreML.h>
 #import <UIKit/UIKit.h>
@@ -65,3 +68,5 @@ static struct Color colors[] = {
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection;
 
 @end
+
+#endif // BLINDASSIST_VIEW_CONTROLLER_H

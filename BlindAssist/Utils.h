@@ -6,6 +6,9 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
+#ifndef BLINDASSIST_UTILS_H
+#define BLINDASSIST_UTILS_H
+
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
@@ -14,3 +17,5 @@
 +(AVCaptureVideoOrientation) getVideoOrientation;
 
 @end
+
+#endif // BLINDASSIST_UTILS_H

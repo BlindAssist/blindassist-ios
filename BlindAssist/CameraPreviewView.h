@@ -6,6 +6,9 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
+#ifndef BLINDASSIST_CAMERA_PREVIEW_VIEW_H
+#define BLINDASSIST_CAMERA_PREVIEW_VIEW_H
+
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 
@@ -22,3 +25,5 @@
 - (void)orientationChanged:(NSNotification*) notification;
 
 @end
+
+#endif // BLINDASSIST_CAMERA_PREVIEW_VIEW_H
