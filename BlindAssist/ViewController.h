@@ -10,11 +10,8 @@
 #define BLINDASSIST_VIEW_CONTROLLER_H
 
 #import <AVFoundation/AVFoundation.h>
-#import <CoreML/CoreML.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
-
-#import "cityscapes.h"
 
 #include "CameraPreviewView.h"
 #include "Utils.h"

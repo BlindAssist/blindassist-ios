@@ -6,6 +6,10 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
+#import <CoreML/CoreML.h>
+#import <Accelerate/Accelerate.h>
+#import "cityscapes.h"
+
 #include "ViewController.h"
 
 @implementation ViewController
@@ -89,16 +93,14 @@
     
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
-            unsigned highestClass = 0;
-            double highest = -DBL_MAX;
-            for (unsigned c = 0; c < channels; c++) {
-                unsigned offset = c * cStride + h * hStride + w * wStride;
-                double score = pointer[offset];
-                if (score > highest) {
-                    highestClass = c;
-                    highest = score;
-                }
-            }
+            vDSP_Length highestClass = 0;
+            double highest;
+            
+            double *channels_pointer = &pointer[h * hStride + w * wStride];
+            vDSP_maxviD(channels_pointer, cStride, &highest, &highestClass, channels);
+            
+            highestClass /= cStride;
+            
             unsigned offset = h * width * 4 + w * 4;
             struct Color rgba = colors[highestClass];
             bytes[offset + 0] = (rgba.r);

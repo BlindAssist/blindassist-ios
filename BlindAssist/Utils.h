@@ -10,7 +10,6 @@
 #define BLINDASSIST_UTILS_H
 
 #import <AVFoundation/AVFoundation.h>
-#import <UIKit/UIKit.h>
 
 @interface Utils : NSObject
 
