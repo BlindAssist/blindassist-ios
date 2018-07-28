@@ -7,8 +7,8 @@
 //
 
 #import <CoreML/CoreML.h>
-#import <Accelerate/Accelerate.h>
 #import "cityscapes.h"
+#import "time.h"
 
 #include "ViewController.h"
 
@@ -82,32 +82,50 @@
     unsigned height = multiArray.shape[1].intValue;
     unsigned width = multiArray.shape[2].intValue;
     
-    // Holds the segmented image
-    uint8_t *bytes = (uint8_t*)malloc(width*height*4);
-
+    // Holds the temporary maxima, and its index (only works if less than 256 channels!)
+    double *tmax = (double*) malloc(width * height * sizeof(double));
+    uint8_t *tchan = (uint8_t*) malloc(width * height);
+    
     double *pointer = (double*) multiArray.dataPointer;
     
     unsigned cStride = multiArray.strides[0].intValue;
     unsigned hStride = multiArray.strides[1].intValue;
     unsigned wStride = multiArray.strides[2].intValue;
     
+    // Just copy the first channel as starting point
     for (unsigned h = 0; h < height; h++) {
         for (unsigned w = 0; w < width; w++) {
-            vDSP_Length highestClass = 0;
-            double highest;
-            
-            double *channels_pointer = &pointer[h * hStride + w * wStride];
-            vDSP_maxviD(channels_pointer, cStride, &highest, &highestClass, channels);
-            
-            highestClass /= cStride;
-            
-            unsigned offset = h * width * 4 + w * 4;
-            struct Color rgba = colors[highestClass];
-            bytes[offset + 0] = (rgba.r);
-            bytes[offset + 1] = (rgba.g);
-            bytes[offset + 2] = (rgba.b);
-            bytes[offset + 3] = (255 / 2); // semi transparent
+            tmax[w + h * width] = pointer[h * hStride + w * wStride];
+            tchan[w + h * width] = 0; // first channel
         }
+    }
+    
+    // We skip first channel on purpose.
+    for (unsigned c = 1; c < channels; c++) {
+        for (unsigned h = 0; h < height; h++) {
+            for (unsigned w = 0; w < width; w++) {
+                double sample = pointer[h * hStride + w * wStride + c * cStride];
+                if (sample > tmax[w + h * width]) {
+                    tmax[w + h * width] = sample;
+                    tchan[w + h * width] = c;
+                }
+            }
+        }
+    }
+    
+    // Now free the maximum buffer, useless
+    free(tmax);
+    
+    // Holds the segmented image
+    uint8_t *bytes = (uint8_t*)malloc(width*height*4);
+    
+    // Calculate image color
+    for (unsigned i = 0; i < height * width; i++) {
+        struct Color rgba = colors[tchan[i]];
+        bytes[i * 4 + 0] = (rgba.r);
+        bytes[i * 4 + 1] = (rgba.g);
+        bytes[i * 4 + 2] = (rgba.b);
+        bytes[i * 4 + 3] = (255 / 2); // semi transparent
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -123,7 +141,8 @@
         [[self predictionView] setImage:image];
     });
     
-    free(bytes);
+    // Free t buffer
+    free(tchan);
 }
 
 -(void)speak:(NSString*) string  {
