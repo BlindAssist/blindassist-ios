@@ -197,6 +197,8 @@ unsigned frame = 0;
         [[self predictionView] setImage:image];
     });
     
+    free(bytes);
+    
     // Free t buffer
     free(tchan);
 }
