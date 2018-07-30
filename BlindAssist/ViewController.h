@@ -44,6 +44,28 @@ static struct Color colors[] = {
     {.r = 119, .g = 11,  .b = 32 }  // bycycle
 };
 
+static char* classNames[] = {
+    "road",
+    "sidewalk",
+    "building",
+    "wall",
+    "fence",
+    "pole",
+    "traffic light",
+    "traffic sign",
+    "vegetation",
+    "terrain",
+    "sky",
+    "person",
+    "rider",
+    "car",
+    "truck",
+    "bus",
+    "train",
+    "motorcycle",
+    "bycycle"
+};
+
 @interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
 
 @property IBOutlet CameraPreviewView *cameraPreview;
