@@ -35,8 +35,19 @@ static char* class_names[] = {
     "bus",
     "train",
     "motorcycle",
-    "bycycle"
+    "bicycle"
 };
+
+/**
+ * The amount of frames which needs to be analyzed to predict a result
+ **/
+static const int FRAMES_TO_ANALYZE = 30;
+
+/**
+ * The amount of frames which are currently analyzed.
+ * Gets reset after a result has been predicted
+ */
+int current_analyzed_frames;
 
 /**
  * Analyses a frame and pushes it to the results.
