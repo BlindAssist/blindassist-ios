@@ -6,16 +6,13 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#ifndef BLINDASSIST_VIEW_CONTROLLER_H
-#define BLINDASSIST_VIEW_CONTROLLER_H
-
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
 #import <CoreMotion/CoreMotion.h>
 
-#include "CameraPreviewView.h"
-#include "Utils.h"
+#import "CameraPreviewView.h"
+#import "Utils.h"
 
 struct Color {
     uint8_t r;
@@ -45,27 +42,6 @@ static struct Color colors[] = {
     {.r = 119, .g = 11,  .b = 32 }  // bycycle
 };
 
-static char* classNames[] = {
-    "road",
-    "sidewalk",
-    "building",
-    "wall",
-    "fence",
-    "pole",
-    "traffic light",
-    "traffic sign",
-    "vegetation",
-    "terrain",
-    "sky",
-    "person",
-    "rider",
-    "car",
-    "truck",
-    "bus",
-    "train",
-    "motorcycle",
-    "bycycle"
-};
 
 @interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
 
@@ -91,5 +67,3 @@ static char* classNames[] = {
 -(void)handleGravity:(CMAcceleration)gravity;
 
 @end
-
-#endif // BLINDASSIST_VIEW_CONTROLLER_H

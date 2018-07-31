@@ -6,8 +6,8 @@
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#include "CameraPreviewView.h"
-#include "Utils.h"
+#import "CameraPreviewView.h"
+#import "Utils.h"
 
 @implementation CameraPreviewView
 

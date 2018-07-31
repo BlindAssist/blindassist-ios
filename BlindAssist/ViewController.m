@@ -7,18 +7,13 @@
 //
 
 #import <CoreML/CoreML.h>
+
 #import "cityscapes.h"
+#import "ViewController.h"
 
-#include "ViewController.h"
+#include "blindassist.h"
 
-#define GRAVITY_CHECK 5 // Amount of seconds to check for incorrect camera orientation
-#define CHANNELS 19 // Cityscapes dataset has 19 classes
-#define FRAMES_TO_CHECK 30 // Defines how much frames needs to be scanned to speak out a result
-
-// Holds scores
-unsigned long *scores[2];
-// Calculates scanned frames
-unsigned frame = 0;
+static const NSTimeInterval GravityCheckInterval = 5.0;
 
 @implementation ViewController
 
@@ -29,7 +24,7 @@ unsigned frame = 0;
     [self speak:@"Initializing application"];
     
     self.motionManager = [[CMMotionManager alloc] init];
-    self.motionManager.deviceMotionUpdateInterval = GRAVITY_CHECK;
+    self.motionManager.deviceMotionUpdateInterval = GravityCheckInterval;
     
     [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
                                     withHandler:^(CMDeviceMotion *motionData, NSError *error) {
@@ -133,64 +128,15 @@ unsigned frame = 0;
     free(tmax);
     
     // Holds the segmented image
-    uint8_t *bytes = (uint8_t*)malloc(width*height*4);
-    
-    if (*scores == NULL) {
-        // 0 and 1 stands for left and right. We increment each score for each channel.
-        scores[0] = (unsigned long *)malloc(CHANNELS * sizeof(unsigned long));
-        scores[1] = (unsigned long *)malloc(CHANNELS * sizeof(unsigned long));
-    }
+    uint8_t *bytes = (uint8_t*) malloc(width * height * 4);
     
     // Calculate image color
     for (unsigned i = 0; i < height * width; i++) {
-        BOOL isRight = (i % height) > width / 2;
-        scores[isRight][tchan[i]] += 1;
-        
         struct Color rgba = colors[tchan[i]];
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
         bytes[i * 4 + 2] = (rgba.b);
         bytes[i * 4 + 3] = (255 / 2); // semi transparent
-    }
-    
-    // Scanned the frame, update count
-    frame++;
-    
-    if (frame >= FRAMES_TO_CHECK) {
-        
-        unsigned highestClassLeft = 0;
-        unsigned long highestClassScoreLeft = 0;
-        
-        // Calculate the highest results for left
-        for (unsigned i = 0; i < CHANNELS; i++) {
-            if (scores[0][i] > highestClassScoreLeft) {
-                highestClassScoreLeft = scores[0][i];
-                highestClassLeft = i;
-            }
-        }
-        
-        unsigned highestClassRight = 0;
-        unsigned long highestClassScoreRight = 0;
-        
-        // Calculate the highest results for right
-        for (unsigned i = 0; i < CHANNELS; i++) {
-            if (scores[1][i] > highestClassScoreRight) {
-                highestClassScoreRight = scores[1][i];
-                highestClassRight = i;
-            }
-        }
-        
-        free(*scores);
-        *scores = NULL;
-        
-        // Speak the results out loud
-        //[self speak:@"Left"];
-        //[self speak:[NSString stringWithUTF8String:classNames[highestClassLeft]]];
-        
-        //[self speak:@"Right"];
-        //[self speak:[NSString stringWithUTF8String:classNames[highestClassRight]]];
-        
-        frame = 0;
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -207,6 +153,9 @@ unsigned frame = 0;
     });
     
     free(bytes);
+    
+    // predict results for this frame
+    analyse_frame(tchan);
     
     // Free t buffer
     free(tchan);
@@ -246,4 +195,5 @@ unsigned frame = 0;
         [self speak:@"Warning: camera is not facing the horizon."];
     }
 }
+
 @end
