@@ -11,6 +11,7 @@
 
 #include "ViewController.h"
 
+#define GRAVITY_CHECK 5 // Amount of seconds to check for incorrect camera orientation
 #define CHANNELS 19 // Cityscapes dataset has 19 classes
 #define FRAMES_TO_CHECK 30 // Defines how much frames needs to be scanned to speak out a result
 
@@ -26,6 +27,14 @@ unsigned frame = 0;
     
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
+    
+    self.motionManager = [[CMMotionManager alloc] init];
+    self.motionManager.deviceMotionUpdateInterval = GRAVITY_CHECK;
+    
+    [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
+                                    withHandler:^(CMDeviceMotion *motionData, NSError *error) {
+                                        [self handleGravity:motionData.gravity];
+                                    }];
     
     VNCoreMLModel *model = [VNCoreMLModel modelForMLModel: [[[cityscapes alloc] init] model] error:nil];
     [self setRequest:[[VNCoreMLRequest alloc] initWithModel:model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
@@ -175,11 +184,11 @@ unsigned frame = 0;
         *scores = NULL;
         
         // Speak the results out loud
-        [self speak:@"Left"];
-        [self speak:[NSString stringWithUTF8String:classNames[highestClassLeft]]];
+        //[self speak:@"Left"];
+        //[self speak:[NSString stringWithUTF8String:classNames[highestClassLeft]]];
         
-        [self speak:@"Right"];
-        [self speak:[NSString stringWithUTF8String:classNames[highestClassRight]]];
+        //[self speak:@"Right"];
+        //[self speak:[NSString stringWithUTF8String:classNames[highestClassRight]]];
         
         frame = 0;
     }
@@ -230,4 +239,11 @@ unsigned frame = 0;
     [handler performRequests:@[[self request]] error:nil];
 }
 
+-(void)handleGravity:(CMAcceleration)gravity
+{
+    if (gravity.y >= -0.97f || gravity.y >= 1.0f) {
+        // TODO: Make some beep for this
+        [self speak:@"Warning: camera is not facing the horizon."];
+    }
+}
 @end

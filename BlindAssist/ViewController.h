@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
+#import <CoreMotion/CoreMotion.h>
 
 #include "CameraPreviewView.h"
 #include "Utils.h"
@@ -73,6 +74,7 @@ static char* classNames[] = {
 @property AVCaptureSession *session;
 @property AVSpeechSynthesizer *tts;
 @property VNCoreMLRequest *request;
+@property CMMotionManager *motionManager;
 
 -(void)permissions:(BOOL)granted;
 
@@ -85,6 +87,8 @@ static char* classNames[] = {
 -(void)speak:(NSString*) string;
 
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection;
+
+-(void)handleGravity:(CMAcceleration)gravity;
 
 @end
 
