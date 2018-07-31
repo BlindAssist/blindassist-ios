@@ -11,7 +11,7 @@
 
 #include <stdint.h>
 
-int analyse_frame(uint8_t *channels, int height, int width);
+int analyse_frame(uint8_t *classes, int height, int width);
 
 char* get_results_sentence(void);
 

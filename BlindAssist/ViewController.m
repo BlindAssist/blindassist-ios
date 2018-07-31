@@ -15,6 +15,8 @@
 
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
+BOOL IsFacingHorizon = true;
+
 @implementation ViewController
 
 - (void)viewDidLoad {
@@ -154,8 +156,15 @@ static const NSTimeInterval GravityCheckInterval = 5.0;
     
     free(bytes);
     
-    // predict results for this frame
-    analyse_frame(tchan, height, width);
+    if (IsFacingHorizon) {
+        // predict results for this frame
+        analyse_frame(tchan, height, width);
+        
+        char* result = get_results_sentence();
+        if (result) {
+            [self speak:[NSString stringWithUTF8String:result]];
+        }
+    }
     
     // Free t buffer
     free(tchan);
@@ -190,7 +199,9 @@ static const NSTimeInterval GravityCheckInterval = 5.0;
 
 -(void)handleGravity:(CMAcceleration)gravity
 {
-    if (gravity.y >= -0.97f || gravity.y >= 1.0f) {
+    IsFacingHorizon = gravity.y <= -0.97f && gravity.y <= 1.0f;
+    
+    if (!IsFacingHorizon) {
         // TODO: Make some beep for this
         [self speak:@"Warning: camera is not facing the horizon."];
     }
