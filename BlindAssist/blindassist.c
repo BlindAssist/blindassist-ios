@@ -47,7 +47,7 @@ static char* class_names[] = {
  * @return 0 on success, or negative on failure
  */
 int analyse_frame(uint8_t *channels, int height, int width) {
-    
+    return 0;
 }
 
 /**

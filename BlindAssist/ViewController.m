@@ -155,7 +155,7 @@ static const NSTimeInterval GravityCheckInterval = 5.0;
     free(bytes);
     
     // predict results for this frame
-    analyse_frame(tchan);
+    analyse_frame(tchan, height, width);
     
     // Free t buffer
     free(tchan);
