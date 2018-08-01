@@ -11,8 +11,31 @@
 
 #include <stdint.h>
 
+#define SUCCESS 0
+
+enum walk_positions {
+    LEFT,
+    RIGHT,
+    NONE
+};
+
+struct scene_information {
+    
+    /**
+     * Defines the position where a user can walk.
+     */
+    enum walk_positions walk_position;
+    
+    /**
+     * Defines wether there were obstacles detected in the environment.
+     */
+    int obstacles;
+};
+
+typedef struct scene_information scene_information;
+
 int analyse_frame(uint8_t *classes, int height, int width);
 
-char* get_results_sentence(void);
+int poll_results(scene_information *information);
 
 #endif /* blindassist_h */

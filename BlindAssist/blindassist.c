@@ -15,31 +15,6 @@
  * explaination of them for the blind user.
  */
 
-/**
- * Contains the human readable names of classes. Ordered by index.
- */
-static char* class_names[] = {
-    "road",
-    "sidewalk",
-    "building",
-    "wall",
-    "fence",
-    "pole",
-    "traffic light",
-    "traffic sign",
-    "vegetation",
-    "terrain",
-    "sky",
-    "person",
-    "rider",
-    "car",
-    "truck",
-    "bus",
-    "train",
-    "motorcycle",
-    "bicycle"
-};
-
 enum classes {
     ROAD,
     SIDEWALK,
@@ -65,7 +40,13 @@ enum classes {
 /**
  * The minimal percent of sidewalk/terrain a half frame needs to contain to consider as 'safe' to walk
  **/
-static const int MINIMAL_PERCENT = 10;
+static const int MINIMAL_WALKABLE_PERCENT = 10;
+
+/**
+ * The minimal percent of poles a frame needs to contain to be considered as dangerous
+ **/
+static const int MINIMAL_POLE_PERCENT = 5;
+
 
 /**
  * The amount of frames which needs to be analyzed to predict a result
@@ -77,6 +58,8 @@ static const int FRAMES_TO_ANALYZE = 30;
  */
 unsigned left_walk_score = 0;
 unsigned right_walk_score = 0;
+
+unsigned obstacle_score = 0;
 
 /**
  * The amount of frames which are currently analyzed.
@@ -96,6 +79,7 @@ int analyse_frame(uint8_t *classes, int height, int width) {
     
     unsigned local_left_walk_score = 0;
     unsigned local_right_walk_score = 0;
+    unsigned local_obstacle_score = 0;
     
     // Loop through each pixel and get the class
     for (unsigned i = 0; i < height * width; i++) {
@@ -104,50 +88,61 @@ int analyse_frame(uint8_t *classes, int height, int width) {
         // sidewalk or terrain (safe to walk on)
         if (class == SIDEWALK || class == TERRAIN) {
             isLeft ? local_left_walk_score++ : local_right_walk_score++;
+        } else if (class == POLE) {
+            local_obstacle_score++;
         }
     }
     
     if (local_left_walk_score > local_right_walk_score) {
         float percent = (local_left_walk_score / ((height * width) / 2.0f)) * 100.0f;
-        if (percent >= MINIMAL_PERCENT) {
+        if (percent >= MINIMAL_WALKABLE_PERCENT) {
             // It's safe to walk here
             left_walk_score++;
         }
     } else {
         float percent = (local_right_walk_score / ((height * width) / 2.0f)) * 100.0f;
-        if (percent >= MINIMAL_PERCENT) {
+        if (percent >= MINIMAL_WALKABLE_PERCENT) {
             // It's safe to walk here
             right_walk_score++;
         }
     }
     
+    float percent = (local_obstacle_score / ((float)(height * width))) * 100.0f;
+    if (percent > MINIMAL_POLE_PERCENT) {
+        // There is clearly an obstacle detected
+        obstacle_score++;
+    }
+    
     current_analyzed_frames++;
     
-    return 0;
+    return SUCCESS;
 }
 
 /**
- * Generates a human readable (and speakable) sentence of the analyzed frames
- *
- * @return a string on success, or NULL when there is no result available (yet).
+ * Generates a scene information of the analyzed frames
  */
-char* get_results_sentence(void) {
-    
-    char* result = NULL;
+int poll_results(scene_information *information) {
     
     if (current_analyzed_frames >= FRAMES_TO_ANALYZE) {
         if (left_walk_score > 0 || right_walk_score > 0) {
             if (left_walk_score > right_walk_score) {
-                result = "You can walk on the left\n";
+                information->walk_position = LEFT;
             } else {
-                result = "You can walk on the right\n";
+                information->walk_position = RIGHT;
             }
         }
+        if (obstacle_score > 0) {
+            information->obstacles = 1;
+        }
+        
         // reset values
         current_analyzed_frames = 0;
         left_walk_score = 0;
         right_walk_score = 0;
+        obstacle_score = 0;
+        
+        return SUCCESS;
     }
     
-    return result;
+    return -1;
 }

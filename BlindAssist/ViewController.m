@@ -161,8 +161,18 @@ BOOL IsFacingHorizon = true;
         analyse_frame(tchan, height, width);
         
         char* result = get_results_sentence();
-        if (result) {
-            [self speak:[NSString stringWithUTF8String:result]];
+        scene_information information = {};
+        int result = poll_results(&information);
+        
+        if (result == SUCCESS) {
+            if (information.walk_position == LEFT) {
+                [self speak:@"Walk left."];
+            } else if (information.walk_position == RIGHT) {
+                [self speak:@"Walk right."];
+            }
+            if (information.obstacles > 0) {
+                [self speak:@"Warning: poles detected."];
+            }
         }
     }
     
