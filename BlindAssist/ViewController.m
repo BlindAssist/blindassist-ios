@@ -160,7 +160,6 @@ BOOL IsFacingHorizon = true;
         // predict results for this frame
         analyse_frame(tchan, height, width);
         
-        char* result = get_results_sentence();
         scene_information information = {};
         int result = poll_results(&information);
         
