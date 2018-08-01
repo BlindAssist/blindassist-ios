@@ -56,10 +56,10 @@ static const int FRAMES_TO_ANALYZE = 30;
 /**
  * Defines scores for the best position to walk.
  */
-unsigned left_walk_score = 0;
-unsigned right_walk_score = 0;
+int left_walk_score = 0;
+int right_walk_score = 0;
 
-unsigned obstacle_score = 0;
+int obstacle_score = 0;
 
 /**
  * The amount of frames which are currently analyzed.
@@ -77,12 +77,12 @@ int current_analyzed_frames = 0;
  */
 int analyse_frame(uint8_t *classes, int height, int width) {
     
-    unsigned local_left_walk_score = 0;
-    unsigned local_right_walk_score = 0;
-    unsigned local_obstacle_score = 0;
+    int local_left_walk_score = 0;
+    int local_right_walk_score = 0;
+    int local_obstacle_score = 0;
     
     // Loop through each pixel and get the class
-    for (unsigned i = 0; i < height * width; i++) {
+    for (int i = 0; i < height * width; i++) {
         int isLeft = i % height <= width / 2;
         int class = classes[i];
         // sidewalk or terrain (safe to walk on)

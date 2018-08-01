@@ -91,9 +91,9 @@ BOOL IsFacingHorizon = true;
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
     // Shape of MLMultiArray is sequence: channels, height and width
-    unsigned channels = multiArray.shape[0].intValue;
-    unsigned height = multiArray.shape[1].intValue;
-    unsigned width = multiArray.shape[2].intValue;
+    int channels = multiArray.shape[0].intValue;
+    int height = multiArray.shape[1].intValue;
+    int width = multiArray.shape[2].intValue;
     
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
     double *tmax = (double*) malloc(width * height * sizeof(double));
@@ -101,22 +101,22 @@ BOOL IsFacingHorizon = true;
     
     double *pointer = (double*) multiArray.dataPointer;
     
-    unsigned cStride = multiArray.strides[0].intValue;
-    unsigned hStride = multiArray.strides[1].intValue;
-    unsigned wStride = multiArray.strides[2].intValue;
+    int cStride = multiArray.strides[0].intValue;
+    int hStride = multiArray.strides[1].intValue;
+    int wStride = multiArray.strides[2].intValue;
     
     // Just copy the first channel as starting point
-    for (unsigned h = 0; h < height; h++) {
-        for (unsigned w = 0; w < width; w++) {
+    for (int h = 0; h < height; h++) {
+        for (int w = 0; w < width; w++) {
             tmax[w + h * width] = pointer[h * hStride + w * wStride];
             tchan[w + h * width] = 0; // first channel
         }
     }
     
     // We skip first channel on purpose.
-    for (unsigned c = 1; c < channels; c++) {
-        for (unsigned h = 0; h < height; h++) {
-            for (unsigned w = 0; w < width; w++) {
+    for (int c = 1; c < channels; c++) {
+        for (int h = 0; h < height; h++) {
+            for (int w = 0; w < width; w++) {
                 double sample = pointer[h * hStride + w * wStride + c * cStride];
                 if (sample > tmax[w + h * width]) {
                     tmax[w + h * width] = sample;
@@ -133,7 +133,7 @@ BOOL IsFacingHorizon = true;
     uint8_t *bytes = (uint8_t*) malloc(width * height * 4);
     
     // Calculate image color
-    for (unsigned i = 0; i < height * width; i++) {
+    for (int i = 0; i < height * width; i++) {
         struct Color rgba = colors[tchan[i]];
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
