@@ -130,6 +130,8 @@ int poll_results(scene_information *information) {
             } else {
                 information->walk_position = RIGHT;
             }
+        } else {
+            information->walk_position = NONE;
         }
         if (obstacle_score > 0) {
             information->obstacles = 1;
