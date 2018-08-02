@@ -164,7 +164,9 @@ BOOL IsFacingHorizon = true;
         int result = poll_results(&information);
         
         if (result == SUCCESS) {
-            if (information.walk_position == LEFT) {
+            if (information.walk_position == FRONT) {
+                [self speak:@"You can walk in front of you."];
+            } else if (information.walk_position == LEFT) {
                 [self speak:@"Walk left."];
             } else if (information.walk_position == RIGHT) {
                 [self speak:@"Walk right."];

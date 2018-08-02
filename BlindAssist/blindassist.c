@@ -58,6 +58,7 @@ static const int FRAMES_TO_ANALYZE = 30;
  */
 int left_walk_score = 0;
 int right_walk_score = 0;
+int center_walk_score = 0;
 
 int obstacle_score = 0;
 
@@ -79,14 +80,22 @@ int analyse_frame(uint8_t *classes, int height, int width) {
     
     int local_left_walk_score = 0;
     int local_right_walk_score = 0;
+    int local_center_walk_score = 0;
+    
     int local_obstacle_score = 0;
     
     // Loop through each pixel and get the class
     for (int i = 0; i < height * width; i++) {
-        int isLeft = i % height <= width / 2;
+        int w = i % height;
+        int isLeft = w <= width / 2;
+        int isCenter = w >= width / 3 && w <= (width / 3) * 2;
+        
         int class = classes[i];
         // sidewalk or terrain (safe to walk on)
         if (class == SIDEWALK || class == TERRAIN) {
+            if (isCenter) {
+                local_center_walk_score++;
+            }
             isLeft ? local_left_walk_score++ : local_right_walk_score++;
         } else if (class == POLE) {
             local_obstacle_score++;
@@ -107,8 +116,14 @@ int analyse_frame(uint8_t *classes, int height, int width) {
         }
     }
     
-    float percent = (local_obstacle_score / ((float)(height * width))) * 100.0f;
-    if (percent > MINIMAL_POLE_PERCENT) {
+    float percent = (local_center_walk_score / ((height * width) / 2.0f)) * 100.0f;
+    if (percent >= MINIMAL_WALKABLE_PERCENT) {
+        // It's safe to walk here
+        center_walk_score++;
+    }
+    
+    float percent2 = (local_obstacle_score / ((float)(height * width))) * 100.0f;
+    if (percent2 > MINIMAL_POLE_PERCENT) {
         // There is clearly an obstacle detected
         obstacle_score++;
     }
@@ -124,7 +139,9 @@ int analyse_frame(uint8_t *classes, int height, int width) {
 int poll_results(scene_information *information) {
     
     if (current_analyzed_frames >= FRAMES_TO_ANALYZE) {
-        if (left_walk_score > 0 || right_walk_score > 0) {
+        if (center_walk_score > 0) {
+            information->walk_position = FRONT;
+        } else if (left_walk_score > 0 || right_walk_score > 0) {
             if (left_walk_score > right_walk_score) {
                 information->walk_position = LEFT;
             } else {
@@ -141,6 +158,7 @@ int poll_results(scene_information *information) {
         current_analyzed_frames = 0;
         left_walk_score = 0;
         right_walk_score = 0;
+        center_walk_score = 0;
         obstacle_score = 0;
         
         return SUCCESS;

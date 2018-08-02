@@ -16,6 +16,7 @@
 enum walk_positions {
     LEFT,
     RIGHT,
+    FRONT,
     NONE
 };
 
