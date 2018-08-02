@@ -13,8 +13,26 @@
 /*
  * This code is responsible for analyzing predicted frames and generate a suitable
  * explaination of them for the blind user.
+ * 
+ * This code will retrieve segmented images using analyse_frame,
+ * everytime this method is called, a calculation will be done for the best walkable
+ * position for the blind user. 
+ * 
+ * There are also checks performed to detect obstacles such as poles. Within the scene.
+ * 
+ * Before a predicition is made, several frames are analysed to guarantee a better
+ * understanding of scene.
+ * 
+ * This code is using percents. Each part of a frame needs to contain a certain 
+ * amount of class pixels to make sure it represents the actual object in real life.
+ * 
+ * After calculation is done, a client can retrieve the results using poll_results.
+ * 
  */
 
+/**
+ * The name of classes ordered by their index
+ */
 enum classes {
     ROAD,
     SIDEWALK,
@@ -38,7 +56,7 @@ enum classes {
 };
 
 /**
- * The minimal percent of sidewalk/terrain a half frame needs to contain to consider as 'safe' to walk
+ * The minimal percent of sidewalk/terrain a part of a frame needs to contain to consider as 'safe' to walk
  **/
 static const int MINIMAL_WALKABLE_PERCENT = 10;
 
@@ -49,7 +67,7 @@ static const int MINIMAL_POLE_PERCENT = 5;
 
 
 /**
- * The amount of frames which needs to be analyzed to predict a result
+ * The amount of frames which needs to be analyzed before predicting a result
  **/
 static const int FRAMES_TO_ANALYZE = 30;
 
