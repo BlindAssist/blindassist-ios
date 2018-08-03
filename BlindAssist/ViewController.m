@@ -15,7 +15,13 @@
 
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
+/**
+ * Speak out results every 5 seconds
+ */
+static const NSTimeInterval PredictionInterval = 5.0;
+
 BOOL IsFacingHorizon = true;
+UInt64 LastPredicitionTime;
 
 @implementation ViewController
 
@@ -156,7 +162,10 @@ BOOL IsFacingHorizon = true;
     
     free(bytes);
     
-    if (IsFacingHorizon) {
+    UInt64 CurrentTime = [[NSDate date] timeIntervalSince1970];
+    
+    if ((IsFacingHorizon && LastPredicitionTime == 0) ||
+        (IsFacingHorizon && (CurrentTime - LastPredicitionTime) > PredictionInterval)) {
         // predict results for this frame
         analyse_frame(tchan, height, width);
         
@@ -167,13 +176,20 @@ BOOL IsFacingHorizon = true;
             if (information.walk_position == FRONT) {
                 [self speak:@"You can walk in front of you."];
             } else if (information.walk_position == LEFT) {
-                [self speak:@"Walk left."];
+                [self speak:@"You can walk left."];
             } else if (information.walk_position == RIGHT) {
-                [self speak:@"Walk right."];
+                [self speak:@"You can walk right."];
             }
-            if (information.obstacles > 0) {
-                [self speak:@"Warning: poles detected."];
+            if (information.poles_detected > 0) {
+                [self speak:@"Poles detected."];
             }
+            if (information.vehicle_detected > 0) {
+                [self speak:@"Parked car detected."];
+            }
+            if (information.bikes_detected > 0) {
+                [self speak:@"Bikes detected."];
+            }
+            LastPredicitionTime = [[NSDate date] timeIntervalSince1970];
         }
     }
     

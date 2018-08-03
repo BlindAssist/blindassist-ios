@@ -28,9 +28,15 @@ struct scene_information {
     enum walk_positions walk_position;
     
     /**
-     * Defines wether there were obstacles detected in the environment.
+     * Defines wether there were poles detected in the environment.
      */
-    int obstacles;
+    int poles_detected;
+    
+    /**
+     * Defines if there are obstacles in front.
+     */
+    int vehicle_detected;
+    int bikes_detected;
 };
 
 typedef struct scene_information scene_information;

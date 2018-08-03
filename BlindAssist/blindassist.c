@@ -56,7 +56,8 @@ enum classes {
 };
 
 /**
- * The minimal percent of sidewalk/terrain a part of a frame needs to contain to consider as 'safe' to walk
+ * The minimal percent of sidewalk/terrain a frame needs to contain to
+ * consider as 'safe' to walk
  **/
 static const int MINIMAL_WALKABLE_PERCENT = 10;
 
@@ -65,11 +66,22 @@ static const int MINIMAL_WALKABLE_PERCENT = 10;
  **/
 static const int MINIMAL_POLE_PERCENT = 5;
 
+/**
+ * The minimal percent of a vehicle the frame needs to contain
+ * to be considered as dangerous
+ **/
+static const int MINIMAL_VEHICLE_PERCENT = 40;
+
+/**
+ * The minimal percent of a bike the frame needs to contain to
+ * be considered as dangerous
+ **/
+static const int MINIMAL_BIKE_PERCENT = 20;
 
 /**
  * The amount of frames which needs to be analyzed before predicting a result
  **/
-static const int FRAMES_TO_ANALYZE = 30;
+static const int FRAMES_TO_ANALYZE = 15;
 
 /**
  * Defines scores for the best position to walk.
@@ -78,7 +90,18 @@ int left_walk_score = 0;
 int right_walk_score = 0;
 int center_walk_score = 0;
 
-int obstacle_score = 0;
+/**
+ * These values will increment once a car/bike is detected in the
+ * a frame. They must cover a certain part of the frame
+ * to consider it as dangerous.
+ */
+int vehicles_score = 0;
+int bikes_score = 0;
+
+/**
+ * Will increment if poles are detected in the environment.
+ */
+int poles_score = 0;
 
 /**
  * The amount of frames which are currently analyzed.
@@ -100,6 +123,9 @@ int analyse_frame(uint8_t *classes, int height, int width) {
     int local_right_walk_score = 0;
     int local_center_walk_score = 0;
     
+    int local_vehicle_score = 0;
+    int local_bike_score = 0;
+    
     int local_obstacle_score = 0;
     
     // Loop through each pixel and get the class
@@ -117,6 +143,11 @@ int analyse_frame(uint8_t *classes, int height, int width) {
             isLeft ? local_left_walk_score++ : local_right_walk_score++;
         } else if (class == POLE) {
             local_obstacle_score++;
+        } else if (class == CAR || class == TRUCK) {
+            // TODO: WHAT TO DO WITH A BUS OR TRAIN?
+            local_vehicle_score++;
+        } else if (class == BICYCLE || class == MOTORCYCLE) {
+            local_bike_score++;
         }
     }
     
@@ -142,8 +173,20 @@ int analyse_frame(uint8_t *classes, int height, int width) {
     
     float percent2 = (local_obstacle_score / ((float)(height * width))) * 100.0f;
     if (percent2 > MINIMAL_POLE_PERCENT) {
-        // There is clearly an obstacle detected
-        obstacle_score++;
+        // There are clearly poles detected
+        poles_score++;
+    }
+    
+    float percent3 = (local_vehicle_score / ((float)(height * width))) * 100.0f;
+    if (percent3 > MINIMAL_VEHICLE_PERCENT) {
+        // There is clearly a car in the front detected
+        vehicles_score++;
+    }
+    
+    float percent4 = (local_bike_score / ((float)(height * width))) * 100.0f;
+    if (percent4 > MINIMAL_BIKE_PERCENT) {
+        // There are some bikes in front of the user
+        bikes_score++;
     }
     
     current_analyzed_frames++;
@@ -168,8 +211,14 @@ int poll_results(scene_information *information) {
         } else {
             information->walk_position = NONE;
         }
-        if (obstacle_score > 0) {
-            information->obstacles = 1;
+        if (poles_score > 0) {
+            information->poles_detected = 1;
+        }
+        if (vehicles_score > 0) {
+            information->vehicle_detected = 1;
+        }
+        if (bikes_score > 0) {
+            information->bikes_detected = 1;
         }
         
         // reset values
@@ -177,7 +226,11 @@ int poll_results(scene_information *information) {
         left_walk_score = 0;
         right_walk_score = 0;
         center_walk_score = 0;
-        obstacle_score = 0;
+        
+        vehicles_score = 0;
+        bikes_score = 0;
+        
+        poles_score = 0;
         
         return SUCCESS;
     }
