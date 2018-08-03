@@ -20,8 +20,10 @@ The assisting process will be done using deep learning, image segmentation
 and translating the inference results to sentences which will be spoken out loud 
 by tts (text to speech).
 
-Currently BlindAssist uses CoreML. You can clone my other repo to get that model
-to use it with this app.
+Currently BlindAssist uses CoreML. You can run the `download_model.sh` script to
+get the prebuilt model.
+
+The source of the model can be found here:
 
 https://github.com/gi097/blindassist-scripts
 
