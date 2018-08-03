@@ -1,4 +1,17 @@
 # BlindAssist
+
+<p>
+  <a href="https://travis-ci.org/gi097/blindassist-ios">
+    <img src="https://img.shields.io/travis/gi097/blindassist-ios/develop.svg?style=flat-square" alt="build" />
+  </a>
+  <a href="http://starveller.sigsev.io/gi097/blindassist-ios">
+    <img src="http://starveller.sigsev.io/api/repos/gi097/blindassist-ios/badge" alt="stars" />
+  </a>
+  <a href='https://coveralls.io/github/gi097/blindassist-ios?branch=develop'>
+    <img src='https://img.shields.io/coveralls/gi097/blindassist-ios.svg?style=flat-square' alt='Coverage Status' />
+  </a>
+</p>
+
 BlindAssist is an iOS application which has the goal to support blind people
 on the road. Since I have a blind brother, I decided to create this open source
 project.
