@@ -16,9 +16,9 @@
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
 /**
- * Speak out results every 5 seconds
+ * Defines the delay between predicions
  */
-static const NSTimeInterval PredictionInterval = 5.0;
+static const NSTimeInterval PredictionInterval = 3.0;
 
 BOOL IsFacingHorizon = true;
 UInt64 LastPredicitionTime;
@@ -164,8 +164,7 @@ UInt64 LastPredicitionTime;
     
     UInt64 CurrentTime = [[NSDate date] timeIntervalSince1970];
     
-    if ((IsFacingHorizon && LastPredicitionTime == 0) ||
-        (IsFacingHorizon && (CurrentTime - LastPredicitionTime) > PredictionInterval)) {
+    if (IsFacingHorizon) {
         // predict results for this frame
         analyse_frame(tchan, height, width);
         
@@ -173,13 +172,7 @@ UInt64 LastPredicitionTime;
         int result = poll_results(&information);
         
         if (result == SUCCESS) {
-            if (information.walk_position == FRONT) {
-                [self speak:@"You can walk in front of you."];
-            } else if (information.walk_position == LEFT) {
-                [self speak:@"You can walk left."];
-            } else if (information.walk_position == RIGHT) {
-                [self speak:@"You can walk right."];
-            }
+            // Critical warnings, ignore time delay
             if (information.poles_detected > 0) {
                 [self speak:@"Poles detected."];
             }
@@ -189,7 +182,16 @@ UInt64 LastPredicitionTime;
             if (information.bikes_detected > 0) {
                 [self speak:@"Bikes detected."];
             }
-            LastPredicitionTime = [[NSDate date] timeIntervalSince1970];
+            if (LastPredicitionTime == 0 || (CurrentTime - LastPredicitionTime) > PredictionInterval) {
+                if (information.walk_position == FRONT) {
+                    [self speak:@"You can walk in front of you."];
+                } else if (information.walk_position == LEFT) {
+                    [self speak:@"You can walk left."];
+                } else if (information.walk_position == RIGHT) {
+                    [self speak:@"You can walk right."];
+                }
+                LastPredicitionTime = [[NSDate date] timeIntervalSince1970];
+            }
         }
     }
     
@@ -200,6 +202,7 @@ UInt64 LastPredicitionTime;
 -(void)speak:(NSString*) string  {
     AVSpeechUtterance *utterance = [AVSpeechUtterance speechUtteranceWithString:string];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    utterance.rate = AVSpeechUtteranceMaximumSpeechRate * 0.60;
     [[self tts] speakUtterance:utterance];
 }
 
