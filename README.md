@@ -5,6 +5,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/gi097/blindassist-ios/badge.svg?branch=develop)](https://coveralls.io/github/gi097/blindassist-ios?branch=develop)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
 
+More information about this project can be found here:
+https://heartbeat.fritz.ai/community-spotlight-blindassist-792b4211af42
+
 BlindAssist is an iOS application which has the goal to support blind people
 on the road. Since I have a blind brother, I decided to create this open source
 project.
