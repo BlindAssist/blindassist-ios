@@ -1,7 +1,7 @@
 #!/bin/bash
 
 OUTPUT_DIR="./BlindAssist/cityscapes.mlmodel"
-MODEL_URL="https://github.com/gi097/blindassist-scripts/releases/download/v1.0/cityscapes.mlmodel"
+MODEL_URL="https://github.com/BlindAssist/blindassist-scripts/releases/download/v1.0/cityscapes.mlmodel"
 
 echo "Starting mlmodel download..."
 
