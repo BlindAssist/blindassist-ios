@@ -21,7 +21,7 @@ get the prebuilt model.
 
 The source of the model can be found here:
 
-https://github.com/gi097/blindassist-scripts
+https://github.com/BlindAssist/blindassist-scripts
 
 # Help is needed!
 Do you have great ideas, or do you want to support my work? Get in touch or contribute!
