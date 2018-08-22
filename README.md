@@ -1,8 +1,8 @@
 # BlindAssist
 
-[![Build Status](https://travis-ci.org/gi097/blindassist-ios.svg?branch=develop)](https://travis-ci.org/gi097/blindassist-ios)
-[![Stars](http://starveller.sigsev.io/api/repos/gi097/blindassist-ios/badge)](http://starveller.sigsev.io/gi097/blindassist-ios)
-[![Coverage Status](https://coveralls.io/repos/github/gi097/blindassist-ios/badge.svg?branch=develop)](https://coveralls.io/github/gi097/blindassist-ios?branch=develop)
+[![Build Status](https://travis-ci.org/BlindAssist/blindassist-ios.svg?branch=develop)](https://travis-ci.org/BlindAssist/blindassist-ios)
+[![Stars](http://starveller.sigsev.io/api/repos/BlindAssist/blindassist-ios/badge)](http://starveller.sigsev.io/BlindAssist/blindassist-ios)
+[![Coverage Status](https://coveralls.io/repos/github/BlindAssist/blindassist-ios/badge.svg?branch=develop)](https://coveralls.io/github/BlindAssist/blindassist-ios?branch=develop)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
 
 More information about this project can be found here:
