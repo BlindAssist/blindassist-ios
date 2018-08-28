@@ -5,9 +5,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/BlindAssist/blindassist-ios/badge.svg?branch=develop)](https://coveralls.io/github/BlindAssist/blindassist-ios?branch=develop)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
 
-More information about this project can be found here:
-https://heartbeat.fritz.ai/community-spotlight-blindassist-792b4211af42
-
 BlindAssist is an iOS application which has the goal to support blind people
 on the road. Since I have a blind brother, I decided to create this open source
 project.
@@ -23,9 +20,5 @@ The source of the model can be found here:
 
 https://github.com/BlindAssist/blindassist-scripts
 
-# Help is needed!
-Do you have great ideas, or do you want to support my work? Get in touch or contribute!
-
-# Example
-Click on the image below to see a YouTube movie of the results.
-[![video thumbnail](https://img.youtube.com/vi/eb-ESNV_PEI/0.jpg)](https://youtu.be/eb-ESNV_PEI)
+## In the media
+<a href="https://heartbeat.fritz.ai/community-spotlight-blindassist-792b4211af42"><img src="https://fritz.ai/images/heartbeat_logo.png" alt="heartbeat" width="256"/></a>
