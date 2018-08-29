@@ -81,7 +81,7 @@ static const int MINIMAL_BIKE_PERCENT = 20;
 /**
  * The amount of frames which needs to be analyzed before predicting a result
  **/
-static const int FRAMES_TO_ANALYZE = 15;
+static const int FRAMES_TO_ANALYZE = 5;
 
 /**
  * Defines scores for the best position to walk.
