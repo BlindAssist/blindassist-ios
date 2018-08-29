@@ -16,7 +16,7 @@
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
 /**
- * Defines the delay between predicions
+ * Defines the delay between predictions
  */
 static const NSTimeInterval PredictionInterval = 3.0;
 
@@ -173,16 +173,16 @@ UInt64 LastPredicitionTime;
         
         if (result == SUCCESS) {
             // Critical warnings, ignore time delay
-            if (information.poles_detected > 0) {
-                [self speak:@"Poles detected."];
-            }
-            if (information.vehicle_detected > 0) {
-                [self speak:@"Parked car detected."];
-            }
-            if (information.bikes_detected > 0) {
-                [self speak:@"Bikes detected."];
-            }
             if (LastPredicitionTime == 0 || (CurrentTime - LastPredicitionTime) > PredictionInterval) {
+                if (information.poles_detected > 0) {
+                    [self speak:@"Poles detected."];
+                }
+                if (information.vehicle_detected > 0) {
+                    [self speak:@"Parked car detected."];
+                }
+                if (information.bikes_detected > 0) {
+                    [self speak:@"Bikes detected."];
+                }
                 if (information.walk_position == FRONT) {
                     [self speak:@"You can walk in front of you."];
                 } else if (information.walk_position == LEFT) {
