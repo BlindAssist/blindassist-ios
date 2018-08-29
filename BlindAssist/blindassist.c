@@ -18,16 +18,15 @@
  * everytime this method is called, a calculation will be done for the best walkable
  * position for the blind user. 
  * 
- * There are also checks performed to detect obstacles such as poles. Within the scene.
+ * There are also checks performed to detect obstacles such as poles within the scene.
  * 
  * Before a predicition is made, several frames are analysed to guarantee a better
  * understanding of scene.
  * 
- * This code is using percents. Each part of a frame needs to contain a certain 
+ * This code is using ratios. Each part of a frame needs to contain a certain
  * amount of class pixels to make sure it represents the actual object in real life.
  * 
  * After calculation is done, a client can retrieve the results using poll_results.
- * 
  */
 
 /**
@@ -56,27 +55,27 @@ enum classes {
 };
 
 /**
- * The minimal percent of sidewalk/terrain a frame needs to contain to
+ * The minimal amount of sidewalk/terrain a frame needs to contain to
  * consider as 'safe' to walk
  **/
-static const int MINIMAL_WALKABLE_PERCENT = 10;
+static const float MINIMAL_WALKABLE_RATIO = 0.1f;
 
 /**
- * The minimal percent of poles a frame needs to contain to be considered as dangerous
+ * The minimal amount of poles a frame needs to contain to be considered as dangerous
  **/
-static const int MINIMAL_POLE_PERCENT = 5;
+static const float MINIMAL_POLE_RATIO = 0.05f;
 
 /**
- * The minimal percent of a vehicle the frame needs to contain
+ * The minimal amount of a vehicle the frame needs to contain
  * to be considered as dangerous
  **/
-static const int MINIMAL_VEHICLE_PERCENT = 40;
+static const float MINIMAL_VEHICLE_RATIO = 0.4f;
 
 /**
- * The minimal percent of a bike the frame needs to contain to
+ * The minimal amount of a bike the frame needs to contain to
  * be considered as dangerous
  **/
-static const int MINIMAL_BIKE_PERCENT = 20;
+static const float MINIMAL_BIKE_RATIO = 0.2f;
 
 /**
  * The amount of frames which needs to be analyzed before predicting a result
@@ -151,40 +150,43 @@ int analyse_frame(uint8_t *classes, int height, int width) {
         }
     }
     
+    // We divide h * w by 2 in the following calculations.
+    // This is due left/right/center detection.
+    
     if (local_left_walk_score > local_right_walk_score) {
-        float percent = (local_left_walk_score / ((height * width) / 2.0f)) * 100.0f;
-        if (percent >= MINIMAL_WALKABLE_PERCENT) {
+        float leftWalkRatio = (local_left_walk_score / ((height * width) / 2.0f));
+        if (leftWalkRatio >= MINIMAL_WALKABLE_RATIO) {
             // It's safe to walk here
             left_walk_score++;
         }
     } else {
-        float percent = (local_right_walk_score / ((height * width) / 2.0f)) * 100.0f;
-        if (percent >= MINIMAL_WALKABLE_PERCENT) {
+        float rightWalkRatio = (local_right_walk_score / ((height * width) / 2.0f));
+        if (rightWalkRatio >= MINIMAL_WALKABLE_RATIO) {
             // It's safe to walk here
             right_walk_score++;
         }
     }
     
-    float percent = (local_center_walk_score / ((height * width) / 2.0f)) * 100.0f;
-    if (percent >= MINIMAL_WALKABLE_PERCENT) {
+    float centerWalkRatio = (local_center_walk_score / ((height * width) / 2.0f));
+    if (centerWalkRatio >= MINIMAL_WALKABLE_RATIO) {
         // It's safe to walk here
         center_walk_score++;
     }
     
-    float percent2 = (local_obstacle_score / ((float)(height * width))) * 100.0f;
-    if (percent2 > MINIMAL_POLE_PERCENT) {
+    float poleRatio = (local_obstacle_score / ((float)(height * width)));
+    if (poleRatio > MINIMAL_POLE_RATIO) {
         // There are clearly poles detected
         poles_score++;
     }
     
-    float percent3 = (local_vehicle_score / ((float)(height * width))) * 100.0f;
-    if (percent3 > MINIMAL_VEHICLE_PERCENT) {
+    float vehiclesRatio = (local_vehicle_score / ((float)(height * width)));
+    if (vehiclesRatio > MINIMAL_VEHICLE_RATIO) {
         // There is clearly a car in the front detected
         vehicles_score++;
     }
     
-    float percent4 = (local_bike_score / ((float)(height * width))) * 100.0f;
-    if (percent4 > MINIMAL_BIKE_PERCENT) {
+    float bikeRatio = (local_bike_score / ((float)(height * width)));
+    if (bikeRatio > MINIMAL_BIKE_RATIO) {
         // There are some bikes in front of the user
         bikes_score++;
     }
@@ -229,7 +231,6 @@ int poll_results(scene_information *information) {
         
         vehicles_score = 0;
         bikes_score = 0;
-        
         poles_score = 0;
         
         return SUCCESS;
