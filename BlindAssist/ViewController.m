@@ -11,19 +11,22 @@
 #import "cityscapes.h"
 #import "ViewController.h"
 #import "Utils.h"
-#import "Plane.h"
 
 @implementation ViewController
 
+int currentChannelMapWidth;
+int currentChannelMapHeight;
+uint8_t *currentChannelMap;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
     
     self.cameraPreview.delegate = self;
     self.cameraPreview.showsStatistics = YES;
-    self.cameraPreview.debugOptions = ARSCNDebugOptionShowFeaturePoints;
+    //self.cameraPreview.debugOptions = ARSCNDebugOptionShowFeaturePoints;
     
     SCNScene *scene = [SCNScene scene];
     self.cameraPreview.scene = scene;
@@ -41,7 +44,7 @@
     [super viewWillAppear:(BOOL)animated];
     
     ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
-    configuration.planeDetection = ARPlaneDetectionVertical | ARPlaneDetectionHorizontal;
+    configuration.planeDetection = ARPlaneDetectionNone;
     
     [self.cameraPreview.session runWithConfiguration:configuration];
 }
@@ -60,9 +63,15 @@
     int height = multiArray.shape[1].intValue;
     int width = multiArray.shape[2].intValue;
     
+    currentChannelMapWidth= width;
+    currentChannelMapHeight = height;
+    
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
     double *tmax = (double*) malloc(width * height * sizeof(double));
-    uint8_t *tchan = (uint8_t*) malloc(width * height);
+    
+    if (currentChannelMap == nil) {
+        currentChannelMap = (uint8_t*) malloc(width * height);
+    }
     
     double *pointer = (double*) multiArray.dataPointer;
     
@@ -74,7 +83,7 @@
     for (int h = 0; h < height; h++) {
         for (int w = 0; w < width; w++) {
             tmax[w + h * width] = pointer[h * hStride + w * wStride];
-            tchan[w + h * width] = 0; // first channel
+            currentChannelMap[w + h * width] = 0; // first channel
         }
     }
     
@@ -85,7 +94,7 @@
                 double sample = pointer[h * hStride + w * wStride + c * cStride];
                 if (sample > tmax[w + h * width]) {
                     tmax[w + h * width] = sample;
-                    tchan[w + h * width] = c;
+                    currentChannelMap[w + h * width] = c;
                 }
             }
         }
@@ -99,7 +108,7 @@
     
     // Calculate image color
     for (int i = 0; i < height * width; i++) {
-        struct Color rgba = colors[tchan[i]];
+        struct Color rgba = colors[currentChannelMap[i]];
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
         bytes[i * 4 + 2] = (rgba.b);
@@ -122,7 +131,7 @@
     free(bytes);
     
     // Free t buffer
-    free(tchan);
+    //free(tchan);
 }
 
 -(void)speak:(NSString*) string  {
@@ -139,9 +148,6 @@
 - (void)captureOutput {
     ARFrame *frame = self.cameraPreview.session.currentFrame;
     CVPixelBufferRef pixelBuffer = frame.capturedImage;
-    if (!pixelBuffer) {
-        return;
-    }
     
     CGImagePropertyOrientation deviceOrientation = [Utils getOrientation];
     NSMutableDictionary<VNImageOption, id> *requestOptions = [NSMutableDictionary dictionary];
@@ -152,47 +158,58 @@
 }
 
 - (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
-    //[self captureOutput];
+    [self captureOutput];
+    
     ARFrame *frame = self.cameraPreview.session.currentFrame;
     ARPointCloud *cloud = frame.rawFeaturePoints;
+    SCNNode *root = self.cameraPreview.scene.rootNode;
+    NSArray<SCNNode *> *nodes = root.childNodes;
     
     for (int i = 0; i < cloud.count; i++) {
-        simd_float4x4 matrix = matrix_identity_float4x4;
-        matrix.columns[0].x = cloud.points[i].x;
-        matrix.columns[1].y = cloud.points[i].y;
-        matrix.columns[2].z = cloud.points[i].z;
+        BOOL addNode = YES;
         
-        BOOL addAnchor = YES;
-        
-        // Check if anchor was already added
-        for (int j = 0; j < frame.anchors.count; j++) {
-            ARAnchor *currentAnchor = frame.anchors[j];
-            if (currentAnchor.transform.columns[0].x == matrix.columns[0].x &&
-                currentAnchor.transform.columns[0].x == matrix.columns[0].x &&
-                currentAnchor.transform.columns[0].x == matrix.columns[0].x) {
-                // Anchor found at location, skip adding
-                addAnchor = NO;
+        // Check if node was already added
+        for (int j = 0; j < nodes.count; j++) {
+            SCNNode *currentNode = nodes[j];
+            SCNVector3 cloudPosition = SCNVector3FromFloat3(cloud.points[i]);
+            if (SCNVector3EqualToVector3(currentNode.position, cloudPosition)) {
+                // Node already found at location, skip adding
+                addNode = NO;
                 break;
             }
         }
         
-        if (!addAnchor) {
+        if (!addNode) {
             continue;
         }
         
-        //ARAnchor *anchor = [[ARAnchor alloc] initWithTransform: matrix];
-        //[self.cameraPreview.session addAnchor:anchor];
-    
         SCNSphere *sphere = [[SCNSphere alloc] init];
         sphere.radius = 0.001f;
-        sphere.firstMaterial.diffuse.contents = [UIColor lightGrayColor];
-        sphere.firstMaterial.specular.contents = [UIColor whiteColor];
        
         SCNNode *node = [SCNNode nodeWithGeometry:sphere];
         node.position = SCNVector3FromFloat3(cloud.points[i]);
-        [self.cameraPreview.scene.rootNode addChildNode:node];
+       
+        // Determine the class
+        SCNVector3 projectedPoint = [renderer projectPoint:node.position];
+        float sceneWidth = self.cameraPreview.bounds.size.width;
+        float sceneHeight = self.cameraPreview.bounds.size.height;
         
-        printf("Added a new anchor\n");
+        // Map the coordinates of the point to the segmented image
+        float scaleFactorX = sceneWidth / currentChannelMapWidth;
+        float scaleFactorY = sceneHeight / currentChannelMapHeight;
+        
+        int x = projectedPoint.x * scaleFactorX;
+        int y = projectedPoint.y * scaleFactorY;
+        
+        printf("Found channel %d\n", currentChannelMap[x * y]);
+        int class = currentChannelMap[x * y];
+        struct Color rgba = colors[class];
+        
+        // Update the color
+        sphere.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r green:rgba.g blue:rgba.b alpha:255];
+        
+        [self.cameraPreview.scene.rootNode addChildNode:node];
+        // TODO: Prevent adding too much nodes
     }
 }
 
