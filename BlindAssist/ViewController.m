@@ -12,6 +12,7 @@
 #import "ViewController.h"
 #import "blindassist.h"
 #import "Utils.h"
+#import "Plane.h"
 
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
@@ -203,6 +204,20 @@ UInt64 LastPredicitionTime;
 
 - (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
     [self captureOutput];
+}
+
+- (void)renderer:(id<SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor {
+    // Place content only for anchors found by plane detection.
+    if ([anchor class] != [ARPlaneAnchor class]) {
+        return;
+    }
+
+    // Create a custom object to visualize the plane geometry and extent.
+    Plane *plane = [[Plane alloc] init:(ARPlaneAnchor*) anchor in:self.cameraPreview];
+    
+    // Add the visualization to the ARKit-managed node so that it tracks
+    // changes in the plane anchor as plane estimation continues.
+    [node addChildNode:plane];
 }
 
 -(void)handleGravity:(CMAcceleration)gravity {
