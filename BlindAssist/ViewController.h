@@ -10,9 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
 #import <CoreMotion/CoreMotion.h>
-
-#import "CameraPreviewView.h"
-#import "Utils.h"
+#import <ARKit/ARKit.h>
 
 struct Color {
     uint8_t r;
@@ -43,26 +41,17 @@ static struct Color colors[] = {
 };
 
 
-@interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface ViewController : UIViewController <ARSCNViewDelegate>
 
-@property IBOutlet CameraPreviewView *cameraPreview;
+@property IBOutlet ARSCNView *cameraPreview;
 @property IBOutlet UIImageView *predictionView;
-@property AVCaptureSession *session;
 @property AVSpeechSynthesizer *tts;
 @property VNCoreMLRequest *request;
 @property CMMotionManager *motionManager;
 
--(void)permissions:(BOOL)granted;
-
--(void)setupSession;
-
--(void)deviceOrientationDidChange;
-
--(void)handlePrediction:(VNRequest*)request :(NSError*)error;
-
 -(void)speak:(NSString*) string;
 
-- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection;
+-(void)captureOutput;
 
 -(void)handleGravity:(CMAcceleration)gravity;
 

@@ -10,8 +10,8 @@
 
 #import "cityscapes.h"
 #import "ViewController.h"
-
-#include "blindassist.h"
+#import "blindassist.h"
+#import "Utils.h"
 
 static const NSTimeInterval GravityCheckInterval = 5.0;
 
@@ -31,6 +31,13 @@ UInt64 LastPredicitionTime;
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
     
+    self.cameraPreview.delegate = self;
+    self.cameraPreview.showsStatistics = YES;
+    self.cameraPreview.debugOptions = ARSCNDebugOptionShowFeaturePoints;
+    
+    SCNScene *scene = [SCNScene scene];
+    self.cameraPreview.scene = scene;
+    
     self.motionManager = [[CMMotionManager alloc] init];
     self.motionManager.deviceMotionUpdateInterval = GravityCheckInterval;
     
@@ -48,48 +55,18 @@ UInt64 LastPredicitionTime;
     [self speak:@"Finished loading, detecting environment"];
 }
 
--(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
-        if (granted) {
-            [self permissions:granted];
-        }
-    }];
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:(BOOL)animated];
+    
+    ARWorldTrackingConfiguration *configuration = [ARWorldTrackingConfiguration new];
+    configuration.planeDetection = ARPlaneDetectionVertical | ARPlaneDetectionHorizontal;
+    
+    [self.cameraPreview.session runWithConfiguration:configuration];
 }
 
--(void)permissions:(BOOL)granted {
-    if (granted && [self session] == nil) {
-        [self setupSession];
-    }
-}
-
--(void)setupSession {
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
-    
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
-    [output setSampleBufferDelegate:self queue:dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)];
-    
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-    [session addInput:input];
-    [session addOutput:output];
-    
-    AVCaptureVideoPreviewLayer *previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:session];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[self cameraPreview] addCaptureVideoPreviewLayer:previewLayer];
-    });
-    
-    [self setSession:session];
-    [[self session] startRunning];
-}
-
--(void)deviceOrientationDidChange {
-    for (AVCaptureOutput *output in [self session].outputs) {
-        for (AVCaptureConnection *connection in output.connections) {
-            connection.videoOrientation = [Utils getVideoOrientation];
-        }
-    }
+-(void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:(BOOL)animated];
+    [self.cameraPreview.session pause];
 }
 
 -(void)handlePrediction:(VNRequest*)request :(NSError*)error {
@@ -210,25 +187,25 @@ UInt64 LastPredicitionTime;
     [super didReceiveMemoryWarning];
 }
 
-- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
-    [self deviceOrientationDidChange];
-    
-    CVImageBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+- (void)captureOutput {
+    CVPixelBufferRef pixelBuffer = _cameraPreview.session.currentFrame.capturedImage;
     if (!pixelBuffer) {
         return;
     }
     
+    CGImagePropertyOrientation deviceOrientation = [Utils getOrientation];
     NSMutableDictionary<VNImageOption, id> *requestOptions = [NSMutableDictionary dictionary];
-    CFTypeRef cameraIntrinsicData = CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil);
-    requestOptions[VNImageOptionCameraIntrinsics] = (__bridge id)(cameraIntrinsicData);
     
-    VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer options:requestOptions];
+    VNImageRequestHandler *handler = [[VNImageRequestHandler alloc] initWithCVPixelBuffer:pixelBuffer orientation:deviceOrientation options:requestOptions];
     
     [handler performRequests:@[[self request]] error:nil];
 }
 
--(void)handleGravity:(CMAcceleration)gravity
-{
+- (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
+    [self captureOutput];
+}
+
+-(void)handleGravity:(CMAcceleration)gravity {
     IsFacingHorizon = gravity.y <= -0.97f && gravity.y <= 1.0f;
     
     if (!IsFacingHorizon) {

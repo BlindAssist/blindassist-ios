@@ -15,7 +15,6 @@
 		A1BF43B32070D11E0030848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */; };
 		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
-		A1BF43C02070D1540030848D /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BE2070D1540030848D /* CameraPreviewView.m */; };
 		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -34,8 +33,6 @@
 		A1BF43B42070D11E0030848D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1BF43B52070D11E0030848D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A1BF43BC2070D1540030848D /* cityscapes.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = cityscapes.mlmodel; sourceTree = "<group>"; };
-		A1BF43BD2070D1540030848D /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
-		A1BF43BE2070D1540030848D /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
 		A1BF43C4207108400030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,8 +68,6 @@
 			children = (
 				A1BF43A62070D11C0030848D /* AppDelegate.h */,
 				A1BF43A72070D11C0030848D /* AppDelegate.m */,
-				A1BF43BD2070D1540030848D /* CameraPreviewView.h */,
-				A1BF43BE2070D1540030848D /* CameraPreviewView.m */,
 				A1BF43A92070D11C0030848D /* ViewController.h */,
 				A1BF43AA2070D11C0030848D /* ViewController.m */,
 				A153DB9D2073561000645AA0 /* Utils.h */,
@@ -161,7 +156,6 @@
 			files = (
 				A1BF43AB2070D11C0030848D /* ViewController.m in Sources */,
 				A1B789532110C7D700FB6CF1 /* blindassist.c in Sources */,
-				A1BF43C02070D1540030848D /* CameraPreviewView.m in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
