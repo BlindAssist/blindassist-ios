@@ -209,7 +209,13 @@ uint8_t *currentChannelMap;
         sphere.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r green:rgba.g blue:rgba.b alpha:255];
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
-        // TODO: Prevent adding too much nodes
+        
+        // Remove rendudant nodes
+        while (self.cameraPreview.scene.rootNode.childNodes.count > 100) {
+            SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
+            [nodeToDelete removeFromParentNode];
+            printf("Node removed\n");
+        }
     }
 }
 
