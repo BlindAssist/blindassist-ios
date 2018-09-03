@@ -220,6 +220,22 @@ UInt64 LastPredicitionTime;
     [node addChildNode:plane];
 }
 
+- (void)renderer:(id<SCNSceneRenderer>)renderer didUpdateNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor {
+    // Update only anchors and nodes set up by `renderer(_:didAdd:for:)`.
+    if ([anchor class] != [ARPlaneAnchor class] || [node.childNodes[0] class] != [Plane class]) {
+        return;
+    }
+    
+    Plane *plane = (Plane*) node.childNodes[0];
+    ARPlaneAnchor *planeAnchor = (ARPlaneAnchor*) anchor;
+    SCNGeometry *planeGeometry = plane.meshNode.geometry;
+    
+    // Update ARSCNPlaneGeometry to the anchor's new estimated shape.
+    if ([planeGeometry class] == [ARSCNPlaneGeometry class]) {
+        [((ARSCNPlaneGeometry*) planeGeometry) updateFromPlaneGeometry:planeAnchor.geometry];
+    }
+}
+
 -(void)handleGravity:(CMAcceleration)gravity {
     IsFacingHorizon = gravity.y <= -0.97f && gravity.y <= 1.0f;
     
