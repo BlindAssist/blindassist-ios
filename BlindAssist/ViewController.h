@@ -9,7 +9,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
-#import <CoreMotion/CoreMotion.h>
 #import <ARKit/ARKit.h>
 
 struct Color {
@@ -47,12 +46,9 @@ static struct Color colors[] = {
 @property IBOutlet UIImageView *predictionView;
 @property AVSpeechSynthesizer *tts;
 @property VNCoreMLRequest *request;
-@property CMMotionManager *motionManager;
 
 -(void)speak:(NSString*) string;
 
 -(void)captureOutput;
-
--(void)handleGravity:(CMAcceleration)gravity;
 
 @end

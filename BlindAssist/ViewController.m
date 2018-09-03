@@ -10,19 +10,8 @@
 
 #import "cityscapes.h"
 #import "ViewController.h"
-#import "blindassist.h"
 #import "Utils.h"
 #import "Plane.h"
-
-static const NSTimeInterval GravityCheckInterval = 5.0;
-
-/**
- * Defines the delay between predictions
- */
-static const NSTimeInterval PredictionInterval = 3.0;
-
-BOOL IsFacingHorizon = true;
-UInt64 LastPredicitionTime;
 
 @implementation ViewController
 
@@ -38,14 +27,6 @@ UInt64 LastPredicitionTime;
     
     SCNScene *scene = [SCNScene scene];
     self.cameraPreview.scene = scene;
-    
-    self.motionManager = [[CMMotionManager alloc] init];
-    self.motionManager.deviceMotionUpdateInterval = GravityCheckInterval;
-    
-    [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue]
-                                    withHandler:^(CMDeviceMotion *motionData, NSError *error) {
-                                        [self handleGravity:motionData.gravity];
-                                    }];
     
     VNCoreMLModel *model = [VNCoreMLModel modelForMLModel: [[[cityscapes alloc] init] model] error:nil];
     [self setRequest:[[VNCoreMLRequest alloc] initWithModel:model completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
@@ -140,39 +121,6 @@ UInt64 LastPredicitionTime;
     
     free(bytes);
     
-    UInt64 CurrentTime = [[NSDate date] timeIntervalSince1970];
-    
-    if (IsFacingHorizon) {
-        // predict results for this frame
-        analyse_frame(tchan, height, width);
-        
-        scene_information information = {};
-        int result = poll_results(&information);
-        
-        if (result == SUCCESS) {
-            // Critical warnings, ignore time delay
-            if (LastPredicitionTime == 0 || (CurrentTime - LastPredicitionTime) > PredictionInterval) {
-                if (information.poles_detected > 0) {
-                    [self speak:@"Poles detected."];
-                }
-                if (information.vehicle_detected > 0) {
-                    [self speak:@"Parked car detected."];
-                }
-                if (information.bikes_detected > 0) {
-                    [self speak:@"Bikes detected."];
-                }
-                if (information.walk_position == FRONT) {
-                    [self speak:@"You can walk in front of you."];
-                } else if (information.walk_position == LEFT) {
-                    [self speak:@"You can walk left."];
-                } else if (information.walk_position == RIGHT) {
-                    [self speak:@"You can walk right."];
-                }
-                LastPredicitionTime = [[NSDate date] timeIntervalSince1970];
-            }
-        }
-    }
-    
     // Free t buffer
     free(tchan);
 }
@@ -189,7 +137,8 @@ UInt64 LastPredicitionTime;
 }
 
 - (void)captureOutput {
-    CVPixelBufferRef pixelBuffer = _cameraPreview.session.currentFrame.capturedImage;
+    ARFrame *frame = self.cameraPreview.session.currentFrame;
+    CVPixelBufferRef pixelBuffer = frame.capturedImage;
     if (!pixelBuffer) {
         return;
     }
@@ -203,45 +152,47 @@ UInt64 LastPredicitionTime;
 }
 
 - (void)renderer:(id<SCNSceneRenderer>)renderer updateAtTime:(NSTimeInterval)time {
-    [self captureOutput];
-}
-
-- (void)renderer:(id<SCNSceneRenderer>)renderer didAddNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor {
-    // Place content only for anchors found by plane detection.
-    if ([anchor class] != [ARPlaneAnchor class]) {
-        return;
-    }
-
-    // Create a custom object to visualize the plane geometry and extent.
-    Plane *plane = [[Plane alloc] init:(ARPlaneAnchor*) anchor in:self.cameraPreview];
+    //[self captureOutput];
+    ARFrame *frame = self.cameraPreview.session.currentFrame;
+    ARPointCloud *cloud = frame.rawFeaturePoints;
     
-    // Add the visualization to the ARKit-managed node so that it tracks
-    // changes in the plane anchor as plane estimation continues.
-    [node addChildNode:plane];
-}
-
-- (void)renderer:(id<SCNSceneRenderer>)renderer didUpdateNode:(SCNNode *)node forAnchor:(ARAnchor *)anchor {
-    // Update only anchors and nodes set up by `renderer(_:didAdd:for:)`.
-    if ([anchor class] != [ARPlaneAnchor class] || [node.childNodes[0] class] != [Plane class]) {
-        return;
-    }
+    for (int i = 0; i < cloud.count; i++) {
+        simd_float4x4 matrix = matrix_identity_float4x4;
+        matrix.columns[0].x = cloud.points[i].x;
+        matrix.columns[1].y = cloud.points[i].y;
+        matrix.columns[2].z = cloud.points[i].z;
+        
+        BOOL addAnchor = YES;
+        
+        // Check if anchor was already added
+        for (int j = 0; j < frame.anchors.count; j++) {
+            ARAnchor *currentAnchor = frame.anchors[j];
+            if (currentAnchor.transform.columns[0].x == matrix.columns[0].x &&
+                currentAnchor.transform.columns[0].x == matrix.columns[0].x &&
+                currentAnchor.transform.columns[0].x == matrix.columns[0].x) {
+                // Anchor found at location, skip adding
+                addAnchor = NO;
+                break;
+            }
+        }
+        
+        if (!addAnchor) {
+            continue;
+        }
+        
+        //ARAnchor *anchor = [[ARAnchor alloc] initWithTransform: matrix];
+        //[self.cameraPreview.session addAnchor:anchor];
     
-    Plane *plane = (Plane*) node.childNodes[0];
-    ARPlaneAnchor *planeAnchor = (ARPlaneAnchor*) anchor;
-    SCNGeometry *planeGeometry = plane.meshNode.geometry;
-    
-    // Update ARSCNPlaneGeometry to the anchor's new estimated shape.
-    if ([planeGeometry class] == [ARSCNPlaneGeometry class]) {
-        [((ARSCNPlaneGeometry*) planeGeometry) updateFromPlaneGeometry:planeAnchor.geometry];
-    }
-}
-
--(void)handleGravity:(CMAcceleration)gravity {
-    IsFacingHorizon = gravity.y <= -0.97f && gravity.y <= 1.0f;
-    
-    if (!IsFacingHorizon) {
-        // TODO: Make some beep for this
-        [self speak:@"Warning: camera is not facing the horizon."];
+        SCNSphere *sphere = [[SCNSphere alloc] init];
+        sphere.radius = 0.001f;
+        sphere.firstMaterial.diffuse.contents = [UIColor lightGrayColor];
+        sphere.firstMaterial.specular.contents = [UIColor whiteColor];
+       
+        SCNNode *node = [SCNNode nodeWithGeometry:sphere];
+        node.position = SCNVector3FromFloat3(cloud.points[i]);
+        [self.cameraPreview.scene.rootNode addChildNode:node];
+        
+        printf("Added a new anchor\n");
     }
 }
 
