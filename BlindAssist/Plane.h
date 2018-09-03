@@ -11,7 +11,6 @@
 @interface Plane : SCNNode
 
 @property SCNNode *meshNode;
-@property SCNNode *extentNode;
 
 - (id)init:(ARPlaneAnchor*)anchor in:(ARSCNView*)sceneView;
 
