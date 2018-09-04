@@ -13,6 +13,7 @@
 #import "Utils.h"
 
 #include <queue>
+#include <mutex>
 
 @implementation ViewController
 
@@ -22,7 +23,8 @@ int currentChannelMapHeight;
 int sceneWidth;
 int sceneHeight;
 
-std::queue<uint8_t*> queue;
+std::vector<uint8_t*> queue;
+std::mutex queue_mutex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -133,15 +135,14 @@ std::queue<uint8_t*> queue;
     CGImageRelease(cgImage);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [[self predictionView] setImage:image];
+        //[[self predictionView] setImage:image];
     });
     
     free(bytes);
     
-    queue.emplace(tchan);
-    
-    // Free t buffer
-    //free(tchan);
+    queue_mutex.lock();
+    queue.insert(queue.begin(), tchan);
+    queue_mutex.unlock();
 }
 
 -(void)speak:(NSString*) string  {
@@ -213,11 +214,14 @@ std::queue<uint8_t*> queue;
             return;
         }
         
-        uint8_t* tchan = (uint8_t*) queue.front();
-        
         int index = x + y * currentChannelMapWidth;
+        if (index <= 0 || index >= currentChannelMapWidth * currentChannelMapHeight) {
+            return;
+        }
         
+        uint8_t* tchan = (uint8_t*) queue.front();
         int c = tchan[index];
+        
         struct Color rgba = colors[c];
         
         // Update the color
@@ -231,7 +235,9 @@ std::queue<uint8_t*> queue;
             [nodeToDelete removeFromParentNode];
         }
         
-        queue.pop();
+        queue_mutex.lock();
+        queue.pop_back();
+        queue_mutex.unlock();
     }
 }
 
