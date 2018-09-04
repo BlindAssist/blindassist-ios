@@ -12,7 +12,7 @@
 #import "ViewController.h"
 #import "Utils.h"
 
-#include "queue.h"
+#include <queue>
 
 @implementation ViewController
 
@@ -22,12 +22,10 @@ int currentChannelMapHeight;
 int sceneWidth;
 int sceneHeight;
 
-StsHeader *queue;
+std::queue<uint8_t*> queue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    queue = StsQueue.create();
     
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
@@ -140,7 +138,7 @@ StsHeader *queue;
     
     free(bytes);
     
-    StsQueue.push(queue, &tchan);
+    queue.emplace(tchan);
     
     // Free t buffer
     //free(tchan);
@@ -211,15 +209,16 @@ StsHeader *queue;
         int x = projectedPoint.x * scaleFactorX;
         int y = projectedPoint.y * scaleFactorY;
         
-        uint8_t* tchan;
-        if ((tchan = StsQueue.pop(queue)) == NULL) {
+        if (queue.empty()) {
             return;
         }
         
+        uint8_t* tchan = (uint8_t*) queue.front();
+        
         int index = x + y * currentChannelMapWidth;
         
-        int class = tchan[index];
-        struct Color rgba = colors[class];
+        int c = tchan[index];
+        struct Color rgba = colors[c];
         
         // Update the color
         box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r/255.0f green:rgba.g/255.0f blue:rgba.b/255.0f alpha:1.0f];
@@ -231,6 +230,8 @@ StsHeader *queue;
             SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
             [nodeToDelete removeFromParentNode];
         }
+        
+        queue.pop();
     }
 }
 

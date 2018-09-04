@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A1244414213E9D3B004AACF0 /* queue.c in Sources */ = {isa = PBXBuildFile; fileRef = A1244412213E9D3B004AACF0 /* queue.c */; };
 		A153DB9B207352DD00645AA0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A153DB9A207352DD00645AA0 /* Utils.m */; };
 		A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43A72070D11C0030848D /* AppDelegate.m */; };
-		A1BF43AB2070D11C0030848D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43AA2070D11C0030848D /* ViewController.m */; };
+		A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43AA2070D11C0030848D /* ViewController.mm */; };
 		A1BF43B02070D11E0030848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43AF2070D11E0030848D /* Assets.xcassets */; };
 		A1BF43B32070D11E0030848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */; };
 		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
@@ -19,15 +18,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		A1244412213E9D3B004AACF0 /* queue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = queue.c; sourceTree = "<group>"; };
-		A1244413213E9D3B004AACF0 /* queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queue.h; sourceTree = "<group>"; };
 		A153DB9A207352DD00645AA0 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		A153DB9D2073561000645AA0 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A1BF43A32070D11C0030848D /* BlindAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BF43A62070D11C0030848D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A1BF43A72070D11C0030848D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A1BF43A92070D11C0030848D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A1BF43AA2070D11C0030848D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A1BF43AA2070D11C0030848D /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		A1BF43AF2070D11E0030848D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1BF43B22070D11E0030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1BF43B42070D11E0030848D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,7 +66,7 @@
 				A1BF43A62070D11C0030848D /* AppDelegate.h */,
 				A1BF43A72070D11C0030848D /* AppDelegate.m */,
 				A1BF43A92070D11C0030848D /* ViewController.h */,
-				A1BF43AA2070D11C0030848D /* ViewController.m */,
+				A1BF43AA2070D11C0030848D /* ViewController.mm */,
 				A153DB9D2073561000645AA0 /* Utils.h */,
 				A153DB9A207352DD00645AA0 /* Utils.m */,
 				A1BF43BC2070D1540030848D /* cityscapes.mlmodel */,
@@ -78,8 +75,6 @@
 				A1BF43C3207108400030848D /* Main.storyboard */,
 				A1BF43B42070D11E0030848D /* Info.plist */,
 				A1BF43B52070D11E0030848D /* main.m */,
-				A1244413213E9D3B004AACF0 /* queue.h */,
-				A1244412213E9D3B004AACF0 /* queue.c */,
 			);
 			path = BlindAssist;
 			sourceTree = "<group>";
@@ -154,10 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1BF43AB2070D11C0030848D /* ViewController.m in Sources */,
+				A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
-				A1244414213E9D3B004AACF0 /* queue.c in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
 				A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */,
 			);
