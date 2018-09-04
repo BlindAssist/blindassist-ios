@@ -122,7 +122,7 @@ std::mutex queue_mutex;
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
         bytes[i * 4 + 2] = (rgba.b);
-        bytes[i * 4 + 3] = (255 / 8); // semi transparent
+        bytes[i * 4 + 3] = (255 / 2); // semi transparent
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -194,7 +194,7 @@ std::mutex queue_mutex;
             continue;
         }
         
-        float size = 0.01f;
+        float size = 0.1f;
         SCNBox *box = [SCNBox boxWithWidth:size height:size length:size chamferRadius:0.0f];
         
         SCNNode *node = [SCNNode nodeWithGeometry:box];
