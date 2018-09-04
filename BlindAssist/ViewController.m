@@ -12,15 +12,23 @@
 #import "ViewController.h"
 #import "Utils.h"
 
+#include "queue.h"
+
 @implementation ViewController
 
 int currentChannelMapWidth;
 int currentChannelMapHeight;
-uint8_t *currentChannelMap;
+
+int sceneWidth;
+int sceneHeight;
+
+StsHeader *queue;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    queue = StsQueue.create();
+    
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
     
@@ -49,6 +57,11 @@ uint8_t *currentChannelMap;
     [self.cameraPreview.session runWithConfiguration:configuration];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    sceneWidth = self.cameraPreview.bounds.size.width;
+    sceneHeight = self.cameraPreview.bounds.size.height;
+}
+
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:(BOOL)animated];
     [self.cameraPreview.session pause];
@@ -68,10 +81,7 @@ uint8_t *currentChannelMap;
     
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
     double *tmax = (double*) malloc(width * height * sizeof(double));
-    
-    if (currentChannelMap == nil) {
-        currentChannelMap = (uint8_t*) malloc(width * height);
-    }
+    uint8_t* tchan = (uint8_t*) malloc(width * height);
     
     double *pointer = (double*) multiArray.dataPointer;
     
@@ -83,7 +93,7 @@ uint8_t *currentChannelMap;
     for (int h = 0; h < height; h++) {
         for (int w = 0; w < width; w++) {
             tmax[w + h * width] = pointer[h * hStride + w * wStride];
-            currentChannelMap[w + h * width] = 0; // first channel
+            tchan[w + h * width] = 0; // first channel
         }
     }
     
@@ -94,7 +104,7 @@ uint8_t *currentChannelMap;
                 double sample = pointer[h * hStride + w * wStride + c * cStride];
                 if (sample > tmax[w + h * width]) {
                     tmax[w + h * width] = sample;
-                    currentChannelMap[w + h * width] = c;
+                    tchan[w + h * width] = c;
                 }
             }
         }
@@ -108,7 +118,7 @@ uint8_t *currentChannelMap;
     
     // Calculate image color
     for (int i = 0; i < height * width; i++) {
-        struct Color rgba = colors[currentChannelMap[i]];
+        struct Color rgba = colors[tchan[i]];
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
         bytes[i * 4 + 2] = (rgba.b);
@@ -129,6 +139,8 @@ uint8_t *currentChannelMap;
     });
     
     free(bytes);
+    
+    StsQueue.push(queue, &tchan);
     
     // Free t buffer
     //free(tchan);
@@ -183,17 +195,15 @@ uint8_t *currentChannelMap;
             continue;
         }
         
-        SCNSphere *sphere = [[SCNSphere alloc] init];
-        sphere.radius = 0.01f;
-       
-        SCNNode *node = [SCNNode nodeWithGeometry:sphere];
+        float size = 0.01f;
+        SCNBox *box = [SCNBox boxWithWidth:size height:size length:size chamferRadius:0.0f];
+        
+        SCNNode *node = [SCNNode nodeWithGeometry:box];
         node.position = SCNVector3FromFloat3(cloud.points[i]);
        
         // Determine the class
         SCNVector3 projectedPoint = [renderer projectPoint:node.position];
-        float sceneWidth = self.cameraPreview.bounds.size.width;
-        float sceneHeight = self.cameraPreview.bounds.size.height;
-        
+
         // Map the coordinates of the point to the segmented image
         float scaleFactorX = sceneWidth / currentChannelMapWidth;
         float scaleFactorY = sceneHeight / currentChannelMapHeight;
@@ -201,12 +211,16 @@ uint8_t *currentChannelMap;
         int x = projectedPoint.x * scaleFactorX;
         int y = projectedPoint.y * scaleFactorY;
         
-        printf("Found channel %d\n", currentChannelMap[x * y]);
-        int class = currentChannelMap[x + y * currentChannelMapWidth];
+        uint8_t* tchan;
+        if ((tchan = StsQueue.pop(queue)) == NULL) {
+            return;
+        }
+        
+        int class = tchan[x + y * currentChannelMapWidth];
         struct Color rgba = colors[class];
         
         // Update the color
-        sphere.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r green:rgba.g blue:rgba.b alpha:255];
+        box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r/255 green:rgba.g/255 blue:rgba.b/255 alpha:1.0f];
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
@@ -214,7 +228,6 @@ uint8_t *currentChannelMap;
         while (self.cameraPreview.scene.rootNode.childNodes.count > 64) {
             SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
             [nodeToDelete removeFromParentNode];
-            printf("Node removed\n");
         }
     }
 }
