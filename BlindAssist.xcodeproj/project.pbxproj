@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10C11FC213ECED600372056 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C11FB213ECED600372056 /* SceneKit.framework */; };
+		A10C11FE213ECF2B00372056 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C11FD213ECF2B00372056 /* ARKit.framework */; };
+		A10C1203213ECF8D00372056 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C1201213ECF3F00372056 /* Vision.framework */; };
 		A153DB9B207352DD00645AA0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A153DB9A207352DD00645AA0 /* Utils.m */; };
 		A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43A72070D11C0030848D /* AppDelegate.m */; };
 		A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43AA2070D11C0030848D /* ViewController.mm */; };
@@ -18,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A10C11FB213ECED600372056 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		A10C11FD213ECF2B00372056 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		A10C11FF213ECF3200372056 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
+		A10C1201213ECF3F00372056 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		A153DB9A207352DD00645AA0 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		A153DB9D2073561000645AA0 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A1BF43A32070D11C0030848D /* BlindAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,17 +45,32 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A10C1203213ECF8D00372056 /* Vision.framework in Frameworks */,
+				A10C11FE213ECF2B00372056 /* ARKit.framework in Frameworks */,
+				A10C11FC213ECED600372056 /* SceneKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A10C11FA213ECED600372056 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A10C1201213ECF3F00372056 /* Vision.framework */,
+				A10C11FF213ECF3200372056 /* CoreML.framework */,
+				A10C11FD213ECF2B00372056 /* ARKit.framework */,
+				A10C11FB213ECED600372056 /* SceneKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A1BF439A2070D11C0030848D = {
 			isa = PBXGroup;
 			children = (
 				A1BF43A52070D11C0030848D /* BlindAssist */,
 				A1BF43A42070D11C0030848D /* Products */,
+				A10C11FA213ECED600372056 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
