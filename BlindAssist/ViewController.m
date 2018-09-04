@@ -122,7 +122,7 @@ StsHeader *queue;
         bytes[i * 4 + 0] = (rgba.r);
         bytes[i * 4 + 1] = (rgba.g);
         bytes[i * 4 + 2] = (rgba.b);
-        bytes[i * 4 + 3] = (255 / 2); // semi transparent
+        bytes[i * 4 + 3] = (255 / 8); // semi transparent
     }
     
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -220,7 +220,7 @@ StsHeader *queue;
         struct Color rgba = colors[class];
         
         // Update the color
-        box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r/255 green:rgba.g/255 blue:rgba.b/255 alpha:1.0f];
+        box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r/255.0f green:rgba.g/255.0f blue:rgba.b/255.0f alpha:1.0f];
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
