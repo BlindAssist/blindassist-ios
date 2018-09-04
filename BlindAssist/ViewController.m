@@ -76,7 +76,7 @@ StsHeader *queue;
     int height = multiArray.shape[1].intValue;
     int width = multiArray.shape[2].intValue;
     
-    currentChannelMapWidth= width;
+    currentChannelMapWidth = width;
     currentChannelMapHeight = height;
     
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
@@ -205,8 +205,8 @@ StsHeader *queue;
         SCNVector3 projectedPoint = [renderer projectPoint:node.position];
 
         // Map the coordinates of the point to the segmented image
-        float scaleFactorX = sceneWidth / currentChannelMapWidth;
-        float scaleFactorY = sceneHeight / currentChannelMapHeight;
+        float scaleFactorX = (float) currentChannelMapWidth / (float) sceneWidth;
+        float scaleFactorY = (float) currentChannelMapHeight / (float) sceneHeight;
         
         int x = projectedPoint.x * scaleFactorX;
         int y = projectedPoint.y * scaleFactorY;
@@ -216,7 +216,9 @@ StsHeader *queue;
             return;
         }
         
-        int class = tchan[x + y * currentChannelMapWidth];
+        int index = x + y * currentChannelMapWidth;
+        
+        int class = tchan[index];
         struct Color rgba = colors[class];
         
         // Update the color
@@ -225,7 +227,7 @@ StsHeader *queue;
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
         // Remove rendudant nodes
-        while (self.cameraPreview.scene.rootNode.childNodes.count > 64) {
+        while (self.cameraPreview.scene.rootNode.childNodes.count > 256) {
             SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
             [nodeToDelete removeFromParentNode];
         }
