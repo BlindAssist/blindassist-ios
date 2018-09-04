@@ -184,7 +184,7 @@ uint8_t *currentChannelMap;
         }
         
         SCNSphere *sphere = [[SCNSphere alloc] init];
-        sphere.radius = 0.001f;
+        sphere.radius = 0.01f;
        
         SCNNode *node = [SCNNode nodeWithGeometry:sphere];
         node.position = SCNVector3FromFloat3(cloud.points[i]);
@@ -202,7 +202,7 @@ uint8_t *currentChannelMap;
         int y = projectedPoint.y * scaleFactorY;
         
         printf("Found channel %d\n", currentChannelMap[x * y]);
-        int class = currentChannelMap[x * y];
+        int class = currentChannelMap[x + y * currentChannelMapWidth];
         struct Color rgba = colors[class];
         
         // Update the color
@@ -211,7 +211,7 @@ uint8_t *currentChannelMap;
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
         // Remove rendudant nodes
-        while (self.cameraPreview.scene.rootNode.childNodes.count > 100) {
+        while (self.cameraPreview.scene.rootNode.childNodes.count > 64) {
             SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
             [nodeToDelete removeFromParentNode];
             printf("Node removed\n");
