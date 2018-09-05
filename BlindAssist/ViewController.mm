@@ -18,6 +18,7 @@
 // These values need to match the model's dimensions
 const int input_width = 384;
 const int input_height = 384;
+const int output_channels = 19;
 
 @implementation ViewController
 
@@ -84,9 +85,6 @@ int scene_height;
     NSArray *results = [request.results copy];
     MLMultiArray *multiArray = ((VNCoreMLFeatureValueObservation*)(results[0])).featureValue.multiArrayValue;
     
-    // Shape of MLMultiArray is sequence: channels, height and width
-    int channels = multiArray.shape[0].intValue;
-    
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
     double *tmax = (double*) malloc(input_width * input_height * sizeof(double));
     uint8_t* tchan = (uint8_t*) malloc(input_width * input_height);
@@ -106,7 +104,7 @@ int scene_height;
     }
     
     // We skip first channel on purpose.
-    for (int c = 1; c < channels; c++) {
+    for (int c = 1; c < output_channels; c++) {
         for (int h = 0; h < input_height; h++) {
             for (int w = 0; w < input_width; w++) {
                 double sample = pointer[h * hStride + w * wStride + c * cStride];
