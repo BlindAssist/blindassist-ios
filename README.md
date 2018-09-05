@@ -20,6 +20,10 @@ Several points in the 3D world (feature points) will be mapped to the
 classes of the segmented image to determine it's correct class. A class
 means an object, think of a road, car or bike.
 
+_ARKit 2 supports saving and sharing the state of a 3D map. In the future,
+BlindAssist might be able to save already predicted maps on a server to let 
+other users reuse it_
+
 ![Process visualization](images/visualization.png?raw=true)
 
 This process will allow us to render and understand a world in 3d to make 

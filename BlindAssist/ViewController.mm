@@ -236,11 +236,13 @@ int scene_height;
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
+        /**
         // Remove rendudant nodes
         while (self.cameraPreview.scene.rootNode.childNodes.count > 256) {
             SCNNode *nodeToDelete = self.cameraPreview.scene.rootNode.childNodes[0];
             [nodeToDelete removeFromParentNode];
         }
+        **/
         
         std::lock_guard<std::mutex> lock(queue_mutex);
         queue.pop_back();
