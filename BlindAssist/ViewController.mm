@@ -1,5 +1,5 @@
 //
-//  ViewController.m
+//  ViewController.mm
 //  BlindAssist
 //
 //  Created by Giovanni Terlingen on 27-03-18.
@@ -15,16 +15,19 @@
 #include <queue>
 #include <mutex>
 
+// These values need to match the model's dimensions
+const int input_width = 384;
+const int input_height = 384;
+
 @implementation ViewController
 
-int currentChannelMapWidth;
-int currentChannelMapHeight;
-
-int sceneWidth;
-int sceneHeight;
-
+// Used for queuing segmentation results for rendering
 std::vector<uint8_t*> queue;
 std::mutex queue_mutex;
+
+// Current 3d scene view's dimensions
+int scene_width;
+int scene_height;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -58,13 +61,23 @@ std::mutex queue_mutex;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    sceneWidth = self.cameraPreview.bounds.size.width;
-    sceneHeight = self.cameraPreview.bounds.size.height;
+    scene_width = self.cameraPreview.bounds.size.width;
+    scene_height = self.cameraPreview.bounds.size.height;
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:(BOOL)animated];
     [self.cameraPreview.session pause];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+    } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        scene_width = self.cameraPreview.bounds.size.width;
+        scene_height = self.cameraPreview.bounds.size.height;
+    }];
 }
 
 -(void)handlePrediction:(VNRequest*)request :(NSError*)error {
@@ -73,15 +86,10 @@ std::mutex queue_mutex;
     
     // Shape of MLMultiArray is sequence: channels, height and width
     int channels = multiArray.shape[0].intValue;
-    int height = multiArray.shape[1].intValue;
-    int width = multiArray.shape[2].intValue;
-    
-    currentChannelMapWidth = width;
-    currentChannelMapHeight = height;
     
     // Holds the temporary maxima, and its index (only works if less than 256 channels!)
-    double *tmax = (double*) malloc(width * height * sizeof(double));
-    uint8_t* tchan = (uint8_t*) malloc(width * height);
+    double *tmax = (double*) malloc(input_width * input_height * sizeof(double));
+    uint8_t* tchan = (uint8_t*) malloc(input_width * input_height);
     
     double *pointer = (double*) multiArray.dataPointer;
     
@@ -90,21 +98,21 @@ std::mutex queue_mutex;
     int wStride = multiArray.strides[2].intValue;
     
     // Just copy the first channel as starting point
-    for (int h = 0; h < height; h++) {
-        for (int w = 0; w < width; w++) {
-            tmax[w + h * width] = pointer[h * hStride + w * wStride];
-            tchan[w + h * width] = 0; // first channel
+    for (int h = 0; h < input_height; h++) {
+        for (int w = 0; w < input_width; w++) {
+            tmax[w + h * input_width] = pointer[h * hStride + w * wStride];
+            tchan[w + h * input_width] = 0; // first channel
         }
     }
     
     // We skip first channel on purpose.
     for (int c = 1; c < channels; c++) {
-        for (int h = 0; h < height; h++) {
-            for (int w = 0; w < width; w++) {
+        for (int h = 0; h < input_height; h++) {
+            for (int w = 0; w < input_width; w++) {
                 double sample = pointer[h * hStride + w * wStride + c * cStride];
-                if (sample > tmax[w + h * width]) {
-                    tmax[w + h * width] = sample;
-                    tchan[w + h * width] = c;
+                if (sample > tmax[w + h * input_width]) {
+                    tmax[w + h * input_width] = sample;
+                    tchan[w + h * input_width] = c;
                 }
             }
         }
@@ -113,15 +121,16 @@ std::mutex queue_mutex;
     // Now free the maximum buffer, useless
     free(tmax);
     
+    /**
     // Holds the segmented image
     uint8_t *bytes = (uint8_t*) malloc(width * height * 4);
     
     // Calculate image color
     for (int i = 0; i < height * width; i++) {
-        struct Color rgba = colors[tchan[i]];
-        bytes[i * 4 + 0] = (rgba.r);
-        bytes[i * 4 + 1] = (rgba.g);
-        bytes[i * 4 + 2] = (rgba.b);
+        struct Color rgb = colors[tchan[i]];
+        bytes[i * 4 + 0] = (rgb.r);
+        bytes[i * 4 + 1] = (rgb.g);
+        bytes[i * 4 + 2] = (rgb.b);
         bytes[i * 4 + 3] = (255 / 2); // semi transparent
     }
     
@@ -135,14 +144,14 @@ std::mutex queue_mutex;
     CGImageRelease(cgImage);
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        //[[self predictionView] setImage:image];
+        [[self predictionView] setImage:image];
     });
     
     free(bytes);
+    **/
     
-    queue_mutex.lock();
+    std::lock_guard<std::mutex> lock(queue_mutex);
     queue.insert(queue.begin(), tchan);
-    queue_mutex.unlock();
 }
 
 -(void)speak:(NSString*) string  {
@@ -204,8 +213,8 @@ std::mutex queue_mutex;
         SCNVector3 projectedPoint = [renderer projectPoint:node.position];
 
         // Map the coordinates of the point to the segmented image
-        float scaleFactorX = (float) currentChannelMapWidth / (float) sceneWidth;
-        float scaleFactorY = (float) currentChannelMapHeight / (float) sceneHeight;
+        float scaleFactorX = (float) input_width / (float) scene_width;
+        float scaleFactorY = (float) input_height / (float) scene_height;
         
         int x = projectedPoint.x * scaleFactorX;
         int y = projectedPoint.y * scaleFactorY;
@@ -214,18 +223,18 @@ std::mutex queue_mutex;
             return;
         }
         
-        int index = x + y * currentChannelMapWidth;
-        if (index <= 0 || index >= currentChannelMapWidth * currentChannelMapHeight) {
+        int index = x + y * input_width;
+        if (index <= 0 || index >= input_width * input_height) {
             return;
         }
         
         uint8_t* tchan = (uint8_t*) queue.front();
         int c = tchan[index];
         
-        struct Color rgba = colors[c];
+        struct Color rgb = colors[c];
         
         // Update the color
-        box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgba.r/255.0f green:rgba.g/255.0f blue:rgba.b/255.0f alpha:1.0f];
+        box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgb.r/255.0f green:rgb.g/255.0f blue:rgb.b/255.0f alpha:1.0f];
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
         
@@ -235,9 +244,8 @@ std::mutex queue_mutex;
             [nodeToDelete removeFromParentNode];
         }
         
-        queue_mutex.lock();
+        std::lock_guard<std::mutex> lock(queue_mutex);
         queue.pop_back();
-        queue_mutex.unlock();
     }
 }
 
