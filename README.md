@@ -20,6 +20,8 @@ Several points in the 3D world (feature points) will be mapped to the
 classes of the segmented image to determine it's correct class. A class
 means an object, think of a road, car or bike.
 
+![Process visualization](images/visualization.png?raw=true)
+
 This process will allow us to render and understand a world in 3d to make 
 predicitions to the blind user. The inference results will be converted to 
 sentences which will be spoken out loud by tts (text to speech).
