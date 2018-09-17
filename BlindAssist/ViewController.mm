@@ -217,6 +217,7 @@ int scene_height;
         int x = projectedPoint.x * scaleFactorX;
         int y = projectedPoint.y * scaleFactorY;
         
+        std::lock_guard<std::mutex> lock(queue_mutex);
         if (queue.empty()) {
             return;
         }
@@ -243,8 +244,7 @@ int scene_height;
             [nodeToDelete removeFromParentNode];
         }
         **/
-        
-        std::lock_guard<std::mutex> lock(queue_mutex);
+
         queue.pop_back();
     }
 }
