@@ -232,7 +232,8 @@ int scene_height;
         
         struct Color rgb = colors[c];
         
-        // Update the color
+        // Update the color and name
+        node.name = [@(c) stringValue];
         box.firstMaterial.diffuse.contents = [UIColor colorWithRed:rgb.r/255.0f green:rgb.g/255.0f blue:rgb.b/255.0f alpha:1.0f];
         
         [self.cameraPreview.scene.rootNode addChildNode:node];
