@@ -19,7 +19,7 @@
 		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
 		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
-		D275709B2160F24800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709A2160F24800DF9C94 /* OnboardingViewController.swift */; };
+		D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709E2160F34800DF9C94 /* OnboardingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,7 +43,7 @@
 		A1BF43BC2070D1540030848D /* cityscapes.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = cityscapes.mlmodel; sourceTree = "<group>"; };
 		A1BF43C4207108400030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlindAssist-Bridging-Header.h"; sourceTree = "<group>"; };
-		D275709A2160F24800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		D275709E2160F34800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		F7B67646B31A51DEAA691A17 /* Pods-BlindAssist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.debug.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,7 +68,6 @@
 				F7B67646B31A51DEAA691A17 /* Pods-BlindAssist.debug.xcconfig */,
 				2DAA1FC88F2EB8EB4C46A336 /* Pods-BlindAssist.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -105,6 +104,7 @@
 		A1BF43A52070D11C0030848D /* BlindAssist */ = {
 			isa = PBXGroup;
 			children = (
+				D275709D2160F34800DF9C94 /* Onboarding */,
 				A1BF43A62070D11C0030848D /* AppDelegate.h */,
 				A1BF43A72070D11C0030848D /* AppDelegate.m */,
 				A1BF43A92070D11C0030848D /* ViewController.h */,
@@ -117,10 +117,17 @@
 				A1BF43C3207108400030848D /* Main.storyboard */,
 				A1BF43B42070D11E0030848D /* Info.plist */,
 				A1BF43B52070D11E0030848D /* main.m */,
-				D275709A2160F24800DF9C94 /* OnboardingViewController.swift */,
 				D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */,
 			);
 			path = BlindAssist;
+			sourceTree = "<group>";
+		};
+		D275709D2160F34800DF9C94 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D275709E2160F34800DF9C94 /* OnboardingViewController.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,7 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */,
-				D275709B2160F24800DF9C94 /* OnboardingViewController.swift in Sources */,
+				D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
