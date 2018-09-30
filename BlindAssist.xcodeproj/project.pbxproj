@@ -20,6 +20,8 @@
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
 		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
 		D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709E2160F34800DF9C94 /* OnboardingViewController.swift */; };
+		D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A02160F35C00DF9C94 /* PagerView.swift */; };
+		D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A22160F3FF00DF9C94 /* PageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		A1BF43C4207108400030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlindAssist-Bridging-Header.h"; sourceTree = "<group>"; };
 		D275709E2160F34800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		D27570A02160F35C00DF9C94 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
+		D27570A22160F3FF00DF9C94 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		F7B67646B31A51DEAA691A17 /* Pods-BlindAssist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.debug.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -126,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				D275709E2160F34800DF9C94 /* OnboardingViewController.swift */,
+				D27570A02160F35C00DF9C94 /* PagerView.swift */,
+				D27570A22160F3FF00DF9C94 /* PageView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -250,6 +256,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */,
+				D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */,
 				A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */,
 				D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
