@@ -57,7 +57,7 @@ final class PageView: UIView {
 
     activate(
       backgroundImageView.anchor.edges,
-      imageView.anchor.size.equal.to(200),
+      imageView.anchor.size.equal.to(150),
       imageView.anchor.centerX,
       imageView.anchor.top.equal.to(anchor.top).constant(150),
       titleLabel.anchor.top.equal.to(imageView.anchor.bottom).constant(50),

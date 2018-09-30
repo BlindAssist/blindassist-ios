@@ -26,16 +26,17 @@ final class OnboardingViewController: UIViewController {
   // MARK: - Make
 
   private func makePagerView() -> PagerView {
-    let texts: [Text] = [
-      Text(title: "What", text: "An iOS app which will support the blind in traffic"),
-      Text(title: "Why", text: "To support blind people on the road"),
-      Text(title: "How", text: "Image segmentation to segment camera images in realtime")
+    let contents: [Content] = [
+      Content(title: "What", text: "An iOS app which will support the blind in traffic", image: "smiley"),
+      Content(title: "Why", text: "To support blind people on the road", image: "car"),
+      Content(title: "How", text: "Image segmentation to segment camera images in realtime", image: "camera")
     ]
 
-    let pageViews: [PageView] = texts.map({ text in
+    let pageViews: [PageView] = contents.map({ content in
       let view = PageView()
-      view.titleLabel.text = text.title
-      view.textLabel.text = text.text
+      view.titleLabel.text = content.title
+      view.textLabel.text = content.text
+      view.imageView.image = UIImage(named: content.image)
       return view
     })
 
@@ -43,7 +44,8 @@ final class OnboardingViewController: UIViewController {
   }
 }
 
-private struct Text {
+private struct Content {
   let title: String
   let text: String
+  let image: String
 }
