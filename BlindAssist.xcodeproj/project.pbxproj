@@ -18,6 +18,7 @@
 		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
 		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
+		D275709B2160F24800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709A2160F24800DF9C94 /* OnboardingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,8 @@
 		A1BF43B52070D11E0030848D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A1BF43BC2070D1540030848D /* cityscapes.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = cityscapes.mlmodel; sourceTree = "<group>"; };
 		A1BF43C4207108400030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlindAssist-Bridging-Header.h"; sourceTree = "<group>"; };
+		D275709A2160F24800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +100,8 @@
 				A1BF43C3207108400030848D /* Main.storyboard */,
 				A1BF43B42070D11E0030848D /* Info.plist */,
 				A1BF43B52070D11E0030848D /* main.m */,
+				D275709A2160F24800DF9C94 /* OnboardingViewController.swift */,
+				D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */,
 			);
 			path = BlindAssist;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				TargetAttributes = {
 					A1BF43A22070D11C0030848D = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -172,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1BF43AB2070D11C0030848D /* ViewController.mm in Sources */,
+				D275709B2160F24800DF9C94 /* OnboardingViewController.swift in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
@@ -315,6 +322,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7M48UR9VTQ;
 				GCC_OPTIMIZATION_LEVEL = 2;
@@ -325,6 +333,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -333,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7M48UR9VTQ;
 				GCC_OPTIMIZATION_LEVEL = 2;
@@ -343,6 +354,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
