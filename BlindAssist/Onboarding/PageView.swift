@@ -18,6 +18,13 @@ final class PageView: UIView {
     return view
   }()
 
+  private(set) lazy var imageView: UIImageView = {
+    let view = UIImageView()
+    view.contentMode = .scaleAspectFit
+
+    return view
+  }()
+
   private(set) lazy var titleLabel: UILabel = {
     let label = UILabel()
     label.textAlignment = .center
@@ -44,12 +51,16 @@ final class PageView: UIView {
     super.init(frame: frame)
 
     addSubview(backgroundImageView)
+    addSubview(imageView)
     addSubview(titleLabel)
     addSubview(textLabel)
 
     activate(
       backgroundImageView.anchor.edges,
-      titleLabel.anchor.centerY,
+      imageView.anchor.size.equal.to(200),
+      imageView.anchor.centerX,
+      imageView.anchor.top.equal.to(anchor.top).constant(150),
+      titleLabel.anchor.top.equal.to(imageView.anchor.bottom).constant(50),
       titleLabel.anchor.paddingHorizontally(20),
       textLabel.anchor.top.equal.to(titleLabel.anchor.bottom).constant(20),
       textLabel.anchor.paddingHorizontally(20)
