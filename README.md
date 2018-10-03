@@ -1,5 +1,4 @@
 # BlindAssist
-
 [![Build Status](https://app.bitrise.io/app/8cef371afcc71242/status.svg?token=shtpwFUA6aLw-ky-oBJP2g&branch=develop)](https://app.bitrise.io/app/8cef371afcc71242)
 [![Stars](http://starveller.sigsev.io/api/repos/BlindAssist/blindassist-ios/badge)](http://starveller.sigsev.io/BlindAssist/blindassist-ios)
 [![Coverage Status](https://coveralls.io/repos/github/BlindAssist/blindassist-ios/badge.svg?branch=develop)](https://coveralls.io/github/BlindAssist/blindassist-ios?branch=develop)
@@ -10,7 +9,6 @@ on the road. Since I have a blind brother, I decided to create this open source
 project.
 
 ## How does it work?
-
 BlindAssist uses image segmentation to segment camera images in realtime. The
 model used for this process is based on the
 [cityscapes](https://www.cityscapes-dataset.com) dataset.
@@ -32,4 +30,4 @@ The source of the model can be found here:
 https://github.com/BlindAssist/blindassist-scripts
 
 ## Sponsors
-<img src="https://fritz.ai/images/heartbeat_logo.png" alt="Fritz.ai" width="256"/>
+<a href="https://heartbeat.fritz.ai"><img src="https://fritz.ai/images/heartbeat_logo.png" alt="heartbeat" width="256"/></a>
