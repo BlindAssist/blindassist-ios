@@ -20,10 +20,6 @@ Several points in the 3D world (feature points) will be mapped to the
 classes of the segmented image to determine it's correct class. A class
 means an object, think of a road, car or bike.
 
-_ARKit 2 supports saving and sharing the state of a 3D map. In the future,
-BlindAssist might be able to save already predicted maps on a server to let 
-other users reuse it_
-
 ![Process visualization](images/visualization.png?raw=true)
 
 This process will allow us to render and understand a world in 3d to make 
@@ -35,5 +31,5 @@ You can run the `download_model.sh` script to get the prebuilt model.
 The source of the model can be found here:
 https://github.com/BlindAssist/blindassist-scripts
 
-## In the media
-<a href="https://heartbeat.fritz.ai/community-spotlight-blindassist-792b4211af42"><img src="https://fritz.ai/images/heartbeat_logo.png" alt="heartbeat" width="256"/></a>
+## Sponsors
+<img src="https://fritz.ai/images/heartbeat_logo.png" alt="Fritz.ai" width="256"/>
