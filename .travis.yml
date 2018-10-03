@@ -5,6 +5,7 @@ xcode_scheme: BlindAssist
 before_install:
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
 before_script:
+  - pod install
   - ./download_model.sh
 script:
   - xcodebuild -project BlindAssist.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
