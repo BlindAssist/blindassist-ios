@@ -2,6 +2,8 @@ language: objective-c
 xcode_project: BlindAssist.xcodeproj
 xcode_scheme: BlindAssist
 
+before_install:
+  - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
 before_script:
   - ./download_model.sh
 script:
