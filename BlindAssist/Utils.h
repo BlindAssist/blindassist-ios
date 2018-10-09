@@ -10,6 +10,6 @@
 
 @interface Utils : NSObject
 
-+(CGImagePropertyOrientation) getOrientation;
++(AVCaptureVideoOrientation) getVideoOrientation;
 
 @end

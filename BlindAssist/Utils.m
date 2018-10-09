@@ -12,24 +12,24 @@
 
 @implementation Utils
 
-+(CGImagePropertyOrientation) getOrientation {
-    CGImagePropertyOrientation orientation;
++(AVCaptureVideoOrientation) getVideoOrientation {
+    AVCaptureVideoOrientation orientation;
     UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
     switch (deviceOrientation) {
         case UIDeviceOrientationPortrait:
-            orientation = kCGImagePropertyOrientationRight;
+            orientation = AVCaptureVideoOrientationPortrait;
             break;
         case UIDeviceOrientationPortraitUpsideDown:
-            orientation = kCGImagePropertyOrientationLeft;
+            orientation = AVCaptureVideoOrientationPortraitUpsideDown;
             break;
         case UIDeviceOrientationLandscapeLeft:
-            orientation = kCGImagePropertyOrientationUp;
+            orientation = AVCaptureVideoOrientationLandscapeRight;
             break;
         case UIDeviceOrientationLandscapeRight:
-            orientation = kCGImagePropertyOrientationDown;
+            orientation = AVCaptureVideoOrientationLandscapeLeft;
             break;
         default:
-            orientation = kCGImagePropertyOrientationRight;
+            orientation = AVCaptureVideoOrientationPortrait;
             break;
     }
     return orientation;
