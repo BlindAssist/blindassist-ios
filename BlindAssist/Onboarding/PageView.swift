@@ -49,6 +49,7 @@ final class PageView: UIView {
     let button = UIButton(type: .custom)
     button.setTitle("Done", for: .normal)
     button.setTitleColor(.black, for: .normal)
+    button.setTitleColor(.gray, for: .highlighted)
 
     return button
   }()
@@ -74,7 +75,7 @@ final class PageView: UIView {
       textLabel.anchor.top.equal.to(titleLabel.anchor.bottom).constant(20),
       textLabel.anchor.paddingHorizontally(20),
       button.anchor.centerX,
-      button.anchor.bottom.constant(-40)
+      button.anchor.bottom.constant(-70)
     )
   }
 
