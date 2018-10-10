@@ -33,11 +33,12 @@ final class OnboardingViewController: UIViewController {
       Content(title: "How", text: "Image segmentation to segment camera images in realtime", image: "camera")
     ]
 
-    let pageViews: [PageView] = contents.map({ content in
+    let pageViews: [PageView] = contents.enumerated().map({ i, content in
       let view = PageView()
       view.titleLabel.text = content.title
       view.textLabel.text = content.text
       view.imageView.image = UIImage(named: content.image)
+      view.button.isHidden = i < contents.count - 1
       return view
     })
 

@@ -45,6 +45,14 @@ final class PageView: UIView {
     return label
   }()
 
+  private(set) lazy var button: UIButton = {
+    let button = UIButton(type: .custom)
+    button.setTitle("Done", for: .normal)
+    button.setTitleColor(.black, for: .normal)
+
+    return button
+  }()
+
   // MARK: - Init
 
   override init(frame: CGRect) {
@@ -54,6 +62,7 @@ final class PageView: UIView {
     addSubview(imageView)
     addSubview(titleLabel)
     addSubview(textLabel)
+    addSubview(button)
 
     activate(
       backgroundImageView.anchor.edges,
@@ -63,7 +72,9 @@ final class PageView: UIView {
       titleLabel.anchor.top.equal.to(imageView.anchor.bottom).constant(50),
       titleLabel.anchor.paddingHorizontally(20),
       textLabel.anchor.top.equal.to(titleLabel.anchor.bottom).constant(20),
-      textLabel.anchor.paddingHorizontally(20)
+      textLabel.anchor.paddingHorizontally(20),
+      button.anchor.centerX,
+      button.anchor.bottom.constant(-20)
     )
   }
 
