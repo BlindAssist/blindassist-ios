@@ -1,0 +1,12 @@
+language: objective-c
+xcode_project: BlindAssist.xcodeproj
+xcode_scheme: BlindAssist
+osx_image: xcode10
+
+before_install:
+  - gem install cocoapods --pre
+before_script:
+  - pod install
+  - ./download_model.sh
+script:
+  - xcodebuild -project BlindAssist.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
