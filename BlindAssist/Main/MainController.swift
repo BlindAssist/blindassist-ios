@@ -22,4 +22,15 @@ final class MainViewController: UIViewController {
   }
 
   // MARK: - Life cycle
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+
+    addChild(viewController)
+    view.addSubview(viewController.view)
+    viewController.didMove(toParent: self)
+  }
 }
