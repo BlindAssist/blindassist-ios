@@ -11,12 +11,14 @@ import Anchors
 
 final class OnboardingViewController: UIViewController {
   private lazy var pagerView: PagerView = self.makePagerView()
+  @objc var onDone: (() -> Void)?
 
   // MARK: - Life cycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
 
+    view.backgroundColor = .white
     view.addSubview(pagerView)
     activate(
       pagerView.anchor.edges
@@ -32,15 +34,21 @@ final class OnboardingViewController: UIViewController {
       Content(title: "How", text: "Image segmentation to segment camera images in realtime", image: "camera")
     ]
 
-    let pageViews: [PageView] = contents.map({ content in
+    let pageViews: [PageView] = contents.enumerated().map({ i, content in
       let view = PageView()
       view.titleLabel.text = content.title
       view.textLabel.text = content.text
       view.imageView.image = UIImage(named: content.image)
+      view.button.isHidden = i < contents.count - 1
+      view.button.addTarget(self, action: #selector(onButtonTouch), for: .touchUpInside)
       return view
     })
 
     return PagerView(views: pageViews)
+  }
+
+  @objc func onButtonTouch() {
+    onDone?()
   }
 }
 

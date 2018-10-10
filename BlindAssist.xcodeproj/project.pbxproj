@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24D1263B874E7BD5AD704DA7 /* Pods_BlindAssist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7508745D9FA74F266C9884 /* Pods_BlindAssist.framework */; };
 		A10C11FC213ECED600372056 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C11FB213ECED600372056 /* SceneKit.framework */; };
 		A10C11FE213ECF2B00372056 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C11FD213ECF2B00372056 /* ARKit.framework */; };
 		A10C1203213ECF8D00372056 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C1201213ECF3F00372056 /* Vision.framework */; };
@@ -18,18 +19,17 @@
 		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
 		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
-		A1E338FBB1AA0F8FC6A8E8E2 /* Pods_BlindAssist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C5742C36A6D7EC08297889 /* Pods_BlindAssist.framework */; };
 		A1ECA712216C882A0021A0DF /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ECA70F216C88290021A0DF /* CameraPreviewView.m */; };
 		A1ECA713216C882A0021A0DF /* blindassist.c in Sources */ = {isa = PBXBuildFile; fileRef = A1ECA710216C882A0021A0DF /* blindassist.c */; };
 		D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709E2160F34800DF9C94 /* OnboardingViewController.swift */; };
 		D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A02160F35C00DF9C94 /* PagerView.swift */; };
 		D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A22160F3FF00DF9C94 /* PageView.swift */; };
+		D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF452216DD294003E8BD6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		11C5742C36A6D7EC08297889 /* Pods_BlindAssist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlindAssist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		231C70640CA12D88F314FF18 /* Pods-BlindAssist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.debug.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.debug.xcconfig"; sourceTree = "<group>"; };
-		60A3416BC584CE68911F43D3 /* Pods-BlindAssist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.release.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.release.xcconfig"; sourceTree = "<group>"; };
+		4C7508745D9FA74F266C9884 /* Pods_BlindAssist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlindAssist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7512F8B822D398669DB64D9F /* Pods-BlindAssist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.debug.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.debug.xcconfig"; sourceTree = "<group>"; };
 		A10C11FB213ECED600372056 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
 		A10C11FD213ECF2B00372056 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A10C11FF213ECF3200372056 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
@@ -38,7 +38,7 @@
 		A153DB9D2073561000645AA0 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		A1BF43A32070D11C0030848D /* BlindAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1BF43A62070D11C0030848D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A1BF43A72070D11C0030848D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A1BF43A72070D11C0030848D /* AppDelegate.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; tabWidth = 4; };
 		A1BF43A92070D11C0030848D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A1BF43AA2070D11C0030848D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A1BF43AF2070D11E0030848D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,10 +51,12 @@
 		A1ECA70F216C88290021A0DF /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
 		A1ECA710216C882A0021A0DF /* blindassist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blindassist.c; sourceTree = "<group>"; };
 		A1ECA711216C882A0021A0DF /* blindassist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blindassist.h; sourceTree = "<group>"; };
+		C08A13BFDC68439276507632 /* Pods-BlindAssist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.release.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.release.xcconfig"; sourceTree = "<group>"; };
 		D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlindAssist-Bridging-Header.h"; sourceTree = "<group>"; };
 		D275709E2160F34800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D27570A02160F35C00DF9C94 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		D27570A22160F3FF00DF9C94 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		D2FEF452216DD294003E8BD6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +67,7 @@
 				A10C1203213ECF8D00372056 /* Vision.framework in Frameworks */,
 				A10C11FE213ECF2B00372056 /* ARKit.framework in Frameworks */,
 				A10C11FC213ECED600372056 /* SceneKit.framework in Frameworks */,
-				A1E338FBB1AA0F8FC6A8E8E2 /* Pods_BlindAssist.framework in Frameworks */,
+				24D1263B874E7BD5AD704DA7 /* Pods_BlindAssist.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,8 +77,8 @@
 		7CB17FEFC5EDC7C90C550A34 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				231C70640CA12D88F314FF18 /* Pods-BlindAssist.debug.xcconfig */,
-				60A3416BC584CE68911F43D3 /* Pods-BlindAssist.release.xcconfig */,
+				7512F8B822D398669DB64D9F /* Pods-BlindAssist.debug.xcconfig */,
+				C08A13BFDC68439276507632 /* Pods-BlindAssist.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -88,7 +90,7 @@
 				A10C11FF213ECF3200372056 /* CoreML.framework */,
 				A10C11FD213ECF2B00372056 /* ARKit.framework */,
 				A10C11FB213ECED600372056 /* SceneKit.framework */,
-				11C5742C36A6D7EC08297889 /* Pods_BlindAssist.framework */,
+				4C7508745D9FA74F266C9884 /* Pods_BlindAssist.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,6 +116,7 @@
 		A1BF43A52070D11C0030848D /* BlindAssist */ = {
 			isa = PBXGroup;
 			children = (
+				D2FEF451216DD282003E8BD6 /* Main */,
 				D275709D2160F34800DF9C94 /* Onboarding */,
 				A1BF43A62070D11C0030848D /* AppDelegate.h */,
 				A1BF43A72070D11C0030848D /* AppDelegate.m */,
@@ -146,6 +149,14 @@
 			path = Onboarding;
 			sourceTree = "<group>";
 		};
+		D2FEF451216DD282003E8BD6 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D2FEF452216DD294003E8BD6 /* MainViewController.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -153,11 +164,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1BF43B92070D11E0030848D /* Build configuration list for PBXNativeTarget "BlindAssist" */;
 			buildPhases = (
-				CAA0AB520BE00EEC51B53AE0 /* [CP] Check Pods Manifest.lock */,
+				1BF0718EBA51CCC920E8563A /* [CP] Check Pods Manifest.lock */,
 				A1BF439F2070D11C0030848D /* Sources */,
 				A1BF43A02070D11C0030848D /* Frameworks */,
 				A1BF43A12070D11C0030848D /* Resources */,
-				BA16BA29F00EA82B8A58872A /* [CP] Embed Pods Frameworks */,
+				9F9044373B6FF449C094FED5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -215,29 +226,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		BA16BA29F00EA82B8A58872A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BlindAssist/Pods-BlindAssist-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Anchors/Anchors.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Anchors.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlindAssist/Pods-BlindAssist-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CAA0AB520BE00EEC51B53AE0 /* [CP] Check Pods Manifest.lock */ = {
+		1BF0718EBA51CCC920E8563A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,6 +248,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9F9044373B6FF449C094FED5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BlindAssist/Pods-BlindAssist-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Anchors/Anchors.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Anchors.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BlindAssist/Pods-BlindAssist-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -273,6 +284,7 @@
 				A1ECA713216C882A0021A0DF /* blindassist.c in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
+				D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
 				A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */,
 				A1ECA712216C882A0021A0DF /* CameraPreviewView.m in Sources */,
@@ -356,6 +368,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -407,18 +420,19 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		A1BF43BA2070D11E0030848D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 231C70640CA12D88F314FF18 /* Pods-BlindAssist.debug.xcconfig */;
+			baseConfigurationReference = 7512F8B822D398669DB64D9F /* Pods-BlindAssist.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7M48UR9VTQ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_OPTIMIZATION_LEVEL = 2;
 				INFOPLIST_FILE = BlindAssist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -427,20 +441,20 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		A1BF43BB2070D11E0030848D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 60A3416BC584CE68911F43D3 /* Pods-BlindAssist.release.xcconfig */;
+			baseConfigurationReference = C08A13BFDC68439276507632 /* Pods-BlindAssist.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 7M48UR9VTQ;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				GCC_OPTIMIZATION_LEVEL = 2;
 				INFOPLIST_FILE = BlindAssist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -449,8 +463,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
