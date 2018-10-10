@@ -1,8 +1,0 @@
-language: objective-c
-xcode_project: BlindAssist.xcodeproj
-xcode_scheme: BlindAssist
-
-before_script:
-  - ./download_model.sh
-script:
-  - xcodebuild -project BlindAssist.xcodeproj -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
