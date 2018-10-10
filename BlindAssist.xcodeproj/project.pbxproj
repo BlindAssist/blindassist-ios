@@ -24,7 +24,7 @@
 		D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709E2160F34800DF9C94 /* OnboardingViewController.swift */; };
 		D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A02160F35C00DF9C94 /* PagerView.swift */; };
 		D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A22160F3FF00DF9C94 /* PageView.swift */; };
-		D2FEF453216DD294003E8BD6 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF452216DD294003E8BD6 /* MainController.swift */; };
+		D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF452216DD294003E8BD6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,7 +56,7 @@
 		D275709E2160F34800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D27570A02160F35C00DF9C94 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		D27570A22160F3FF00DF9C94 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
-		D2FEF452216DD294003E8BD6 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
+		D2FEF452216DD294003E8BD6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +152,7 @@
 		D2FEF451216DD282003E8BD6 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				D2FEF452216DD294003E8BD6 /* MainController.swift */,
+				D2FEF452216DD294003E8BD6 /* MainViewController.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -284,7 +284,7 @@
 				A1ECA713216C882A0021A0DF /* blindassist.c in Sources */,
 				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
-				D2FEF453216DD294003E8BD6 /* MainController.swift in Sources */,
+				D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
 				A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */,
 				A1ECA712216C882A0021A0DF /* CameraPreviewView.m in Sources */,

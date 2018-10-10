@@ -11,6 +11,7 @@ import Anchors
 
 final class OnboardingViewController: UIViewController {
   private lazy var pagerView: PagerView = self.makePagerView()
+  @objc var onDone: (() -> Void)?
 
   // MARK: - Life cycle
 
@@ -47,7 +48,7 @@ final class OnboardingViewController: UIViewController {
   }
 
   @objc func onButtonTouch() {
-
+    onDone?()
   }
 }
 
