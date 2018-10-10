@@ -74,7 +74,7 @@ final class PageView: UIView {
       textLabel.anchor.top.equal.to(titleLabel.anchor.bottom).constant(20),
       textLabel.anchor.paddingHorizontally(20),
       button.anchor.centerX,
-      button.anchor.bottom.constant(-20)
+      button.anchor.bottom.constant(-40)
     )
   }
 
