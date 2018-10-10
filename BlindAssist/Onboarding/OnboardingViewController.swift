@@ -39,10 +39,15 @@ final class OnboardingViewController: UIViewController {
       view.textLabel.text = content.text
       view.imageView.image = UIImage(named: content.image)
       view.button.isHidden = i < contents.count - 1
+      view.button.addTarget(self, action: #selector(onButtonTouch), for: .touchUpInside)
       return view
     })
 
     return PagerView(views: pageViews)
+  }
+
+  @objc func onButtonTouch() {
+
   }
 }
 
