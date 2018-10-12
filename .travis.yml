@@ -11,4 +11,4 @@ install:
 before_script:
   - ./download_model.sh
 script:
-  - xcodebuild -project BlindAssist.xcworkspace -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xcodebuild -workspace BlindAssist.xcworkspace -scheme BlindAssist -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
