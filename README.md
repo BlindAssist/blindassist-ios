@@ -21,4 +21,4 @@ The source of the model can be found here:
 https://github.com/BlindAssist/blindassist-scripts
 
 ## Sponsors
-<a href="https://heartbeat.fritz.ai"><img src="https://fritz.ai/images/heartbeat_logo.png" alt="heartbeat" width="256"/></a>
+<a href="https://fritz.ai"><img src="images/fritz_logo.svg?raw=true" alt="heartbeat" width="256"/></a>
