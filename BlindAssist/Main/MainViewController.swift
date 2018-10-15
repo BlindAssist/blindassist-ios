@@ -36,11 +36,19 @@ final class MainViewController: UIViewController {
   // MARK: - Setup
 
   private func setup() {
-
+    view.backgroundColor = .white
+    predictionView.contentMode = .scaleToFill
   }
 
   private func setupConstraints() {
     view.addSubview(cameraPreview)
     view.addSubview(predictionView)
+
+    activate(
+      cameraPreview.anchor.left.top.right,
+      cameraPreview.anchor.width,
+      cameraPreview.anchor.ratio(1.0),
+      predictionView.anchor.edges.equal.to(cameraPreview.anchor)
+    )
   }
 }
