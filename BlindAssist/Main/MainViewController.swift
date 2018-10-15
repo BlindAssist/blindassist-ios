@@ -11,6 +11,9 @@ import Anchors
 
 final class MainViewController: UIViewController {
 
+  private lazy var cameraPreview = CameraPreviewView()
+  private lazy var predictionView = UIImageView()
+
   // MARK: - Init
 
   required init() {
@@ -26,11 +29,18 @@ final class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+    setup()
+    setupConstraints()
+  }
 
-    addChild(viewController)
-    view.addSubview(viewController.view)
-    viewController.didMove(toParent: self)
+  // MARK: - Setup
+
+  private func setup() {
+
+  }
+
+  private func setupConstraints() {
+    view.addSubview(cameraPreview)
+    view.addSubview(predictionView)
   }
 }
