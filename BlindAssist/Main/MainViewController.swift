@@ -11,6 +11,9 @@ import Anchors
 
 final class MainViewController: UIViewController {
 
+  private lazy var cameraPreview = CameraPreviewView()
+  private lazy var predictionView = UIImageView()
+
   // MARK: - Init
 
   required init() {
@@ -26,11 +29,29 @@ final class MainViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let viewController = storyboard.instantiateViewController(withIdentifier: "ViewController")
+    setup()
+    setupConstraints()
+  }
 
-    addChild(viewController)
-    view.addSubview(viewController.view)
-    viewController.didMove(toParent: self)
+  // MARK: - Setup
+
+  private func setup() {
+    view.backgroundColor = .white
+    predictionView.contentMode = .scaleToFill
+
+    // TEST
+    predictionView.backgroundColor = .lightGray
+  }
+
+  private func setupConstraints() {
+    view.addSubview(cameraPreview)
+    view.addSubview(predictionView)
+
+    activate(
+      cameraPreview.anchor.left.top.right,
+      cameraPreview.anchor.width,
+      cameraPreview.anchor.height.ratio(1.0),
+      predictionView.anchor.edges.equal.to(cameraPreview.anchor)
+    )
   }
 }
