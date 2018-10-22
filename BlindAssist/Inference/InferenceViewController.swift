@@ -24,7 +24,7 @@ final class InferenceViewController: UIViewController {
     private var request: VNCoreMLRequest?
     private var lastPredictionTime: Double = 0
     
-    private let GravityCheckInterval: TimeInterval = 5.0
+    private let GravityCheckInterval: TimeInterval = 1.0
     private let PredictionInterval: TimeInterval = 3.0
     
     // MARK: - Init
