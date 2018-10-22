@@ -13,7 +13,6 @@
  */
 
 #import <AVFoundation/AVFoundation.h>
-#import <CoreMotion/CoreMotion.h>
 
 #import "Inference.h"
 
