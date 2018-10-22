@@ -13,7 +13,7 @@ import Vision
 import CoreML
 import CoreMotion
 
-@objc final class InferenceViewController: UIViewController {
+final class InferenceViewController: UIViewController {
     
     private lazy var cameraPreview = CameraPreviewView()
     private lazy var predictionView = UIImageView()
@@ -125,7 +125,7 @@ import CoreMotion
         session.startRunning()
     }
     
-    @objc private func deviceOrientationDidChange() {
+    private func deviceOrientationDidChange() {
         session?.outputs.forEach {
             $0.connections.forEach {
                 $0.videoOrientation = UIDevice.current.videoOrientation
@@ -167,7 +167,7 @@ import CoreMotion
         }
     }
     
-    @objc func speak(_ string: String?) {
+    func speak(_ string: String?) {
         let utterance = AVSpeechUtterance(string: string ?? "")
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceMaximumSpeechRate * 0.60

@@ -26,7 +26,8 @@ extension UIDevice {
             orientation = .landscapeLeft
         case .landscapeRight:
             orientation = .landscapeRight
-        default: orientation = .portrait
+        default:
+            orientation = .portrait
         }
         
         return orientation
