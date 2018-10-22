@@ -29,6 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func switchToMain() {
-        window!.rootViewController = ViewController()
+        window!.rootViewController = InferenceViewController()
     }
 }

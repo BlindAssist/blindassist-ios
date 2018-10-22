@@ -1,18 +1,15 @@
 //
-//  ViewController.h
+//  Inference.h
 //  BlindAssist
 //
-//  Created by Giovanni Terlingen on 27-03-18.
+//  Created by Giovanni Terlingen on 22/10/2018.
 //  Copyright © 2018 Giovanni Terlingen. All rights reserved.
 //
 
-#import <AVFoundation/AVFoundation.h>
 #import <UIKit/UIKit.h>
 #import <Vision/Vision.h>
-#import <CoreMotion/CoreMotion.h>
 
-#import "CameraPreviewView.h"
-#import "Utils.h"
+#import "blindassist.h"
 
 struct Color {
     uint8_t r;
@@ -42,28 +39,8 @@ static struct Color colors[] = {
     {.r = 119, .g = 11,  .b = 32 }  // bycycle
 };
 
+@interface Inference : NSObject
 
-@interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
-
-@property CameraPreviewView *cameraPreview;
-@property UIImageView *predictionView;
-@property AVCaptureSession *session;
-@property AVSpeechSynthesizer *tts;
-@property VNCoreMLRequest *request;
-@property CMMotionManager *motionManager;
-
--(void)permissions:(BOOL)granted;
-
--(void)setupSession;
-
--(void)deviceOrientationDidChange;
-
--(void)handlePrediction:(VNRequest*)request :(NSError*)error;
-
--(void)speak:(NSString*) string;
-
-- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection;
-
--(void)handleGravity:(CMAcceleration)gravity;
++(int) handlePrediction:(VNRequest*)request :(UIImageView*)predictionView :(scene_information*)information;
 
 @end
