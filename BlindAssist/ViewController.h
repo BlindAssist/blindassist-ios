@@ -45,8 +45,8 @@ static struct Color colors[] = {
 
 @interface ViewController : UIViewController <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property IBOutlet CameraPreviewView *cameraPreview;
-@property IBOutlet UIImageView *predictionView;
+@property CameraPreviewView *cameraPreview;
+@property UIImageView *predictionView;
 @property AVCaptureSession *session;
 @property AVSpeechSynthesizer *tts;
 @property VNCoreMLRequest *request;

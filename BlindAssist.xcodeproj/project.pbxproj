@@ -12,19 +12,16 @@
 		A10C11FE213ECF2B00372056 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C11FD213ECF2B00372056 /* ARKit.framework */; };
 		A10C1203213ECF8D00372056 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A10C1201213ECF3F00372056 /* Vision.framework */; };
 		A153DB9B207352DD00645AA0 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = A153DB9A207352DD00645AA0 /* Utils.m */; };
-		A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43A72070D11C0030848D /* AppDelegate.m */; };
+		A1857D7D217DDCB6004C31CC /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1857D7C217DDCB6004C31CC /* ViewControllerExtension.swift */; };
+		A1B789532110C7D700FB6CF1 /* blindassist.c in Sources */ = {isa = PBXBuildFile; fileRef = A1B789522110C7D700FB6CF1 /* blindassist.c */; };
 		A1BF43AB2070D11C0030848D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43AA2070D11C0030848D /* ViewController.m */; };
 		A1BF43B02070D11E0030848D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43AF2070D11E0030848D /* Assets.xcassets */; };
-		A1BF43B32070D11E0030848D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */; };
-		A1BF43B62070D11E0030848D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43B52070D11E0030848D /* main.m */; };
 		A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BC2070D1540030848D /* cityscapes.mlmodel */; };
-		A1BF43C5207108400030848D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1BF43C3207108400030848D /* Main.storyboard */; };
-		A1ECA712216C882A0021A0DF /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ECA70F216C88290021A0DF /* CameraPreviewView.m */; };
-		A1ECA713216C882A0021A0DF /* blindassist.c in Sources */ = {isa = PBXBuildFile; fileRef = A1ECA710216C882A0021A0DF /* blindassist.c */; };
+		A1BF43C02070D1540030848D /* CameraPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1BF43BE2070D1540030848D /* CameraPreviewView.m */; };
+		A1E6B04F217CBCF400CBD0BF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E6B04E217CBCF400CBD0BF /* AppDelegate.swift */; };
 		D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D275709E2160F34800DF9C94 /* OnboardingViewController.swift */; };
 		D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A02160F35C00DF9C94 /* PagerView.swift */; };
 		D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27570A22160F3FF00DF9C94 /* PageView.swift */; };
-		D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FEF452216DD294003E8BD6 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,27 +33,23 @@
 		A10C1201213ECF3F00372056 /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		A153DB9A207352DD00645AA0 /* Utils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		A153DB9D2073561000645AA0 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		A1857D7C217DDCB6004C31CC /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
+		A1B789512110C7D700FB6CF1 /* blindassist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = blindassist.h; sourceTree = "<group>"; };
+		A1B789522110C7D700FB6CF1 /* blindassist.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = blindassist.c; sourceTree = "<group>"; };
 		A1BF43A32070D11C0030848D /* BlindAssist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlindAssist.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1BF43A62070D11C0030848D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		A1BF43A72070D11C0030848D /* AppDelegate.m */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; tabWidth = 4; };
 		A1BF43A92070D11C0030848D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		A1BF43AA2070D11C0030848D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		A1BF43AF2070D11E0030848D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A1BF43B22070D11E0030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1BF43B42070D11E0030848D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A1BF43B52070D11E0030848D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A1BF43BC2070D1540030848D /* cityscapes.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = cityscapes.mlmodel; sourceTree = "<group>"; };
-		A1BF43C4207108400030848D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A1ECA70E216C88290021A0DF /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
-		A1ECA70F216C88290021A0DF /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
-		A1ECA710216C882A0021A0DF /* blindassist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = blindassist.c; sourceTree = "<group>"; };
-		A1ECA711216C882A0021A0DF /* blindassist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = blindassist.h; sourceTree = "<group>"; };
+		A1BF43BD2070D1540030848D /* CameraPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPreviewView.h; sourceTree = "<group>"; };
+		A1BF43BE2070D1540030848D /* CameraPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraPreviewView.m; sourceTree = "<group>"; };
+		A1E6B04E217CBCF400CBD0BF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C08A13BFDC68439276507632 /* Pods-BlindAssist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlindAssist.release.xcconfig"; path = "Target Support Files/Pods-BlindAssist/Pods-BlindAssist.release.xcconfig"; sourceTree = "<group>"; };
 		D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BlindAssist-Bridging-Header.h"; sourceTree = "<group>"; };
 		D275709E2160F34800DF9C94 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		D27570A02160F35C00DF9C94 /* PagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagerView.swift; sourceTree = "<group>"; };
 		D27570A22160F3FF00DF9C94 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
-		D2FEF452216DD294003E8BD6 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,24 +109,20 @@
 		A1BF43A52070D11C0030848D /* BlindAssist */ = {
 			isa = PBXGroup;
 			children = (
-				D2FEF451216DD282003E8BD6 /* Main */,
 				D275709D2160F34800DF9C94 /* Onboarding */,
-				A1BF43A62070D11C0030848D /* AppDelegate.h */,
-				A1BF43A72070D11C0030848D /* AppDelegate.m */,
-				A1ECA70E216C88290021A0DF /* CameraPreviewView.h */,
-				A1ECA70F216C88290021A0DF /* CameraPreviewView.m */,
+				A1E6B04E217CBCF400CBD0BF /* AppDelegate.swift */,
+				A1BF43BD2070D1540030848D /* CameraPreviewView.h */,
+				A1BF43BE2070D1540030848D /* CameraPreviewView.m */,
 				A1BF43A92070D11C0030848D /* ViewController.h */,
 				A1BF43AA2070D11C0030848D /* ViewController.m */,
+				A1857D7C217DDCB6004C31CC /* ViewControllerExtension.swift */,
 				A153DB9D2073561000645AA0 /* Utils.h */,
 				A153DB9A207352DD00645AA0 /* Utils.m */,
 				A1BF43BC2070D1540030848D /* cityscapes.mlmodel */,
 				A1BF43AF2070D11E0030848D /* Assets.xcassets */,
-				A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */,
-				A1BF43C3207108400030848D /* Main.storyboard */,
 				A1BF43B42070D11E0030848D /* Info.plist */,
-				A1BF43B52070D11E0030848D /* main.m */,
-				A1ECA710216C882A0021A0DF /* blindassist.c */,
-				A1ECA711216C882A0021A0DF /* blindassist.h */,
+				A1B789512110C7D700FB6CF1 /* blindassist.h */,
+				A1B789522110C7D700FB6CF1 /* blindassist.c */,
 				D27570992160F24800DF9C94 /* BlindAssist-Bridging-Header.h */,
 			);
 			path = BlindAssist;
@@ -147,14 +136,6 @@
 				D27570A22160F3FF00DF9C94 /* PageView.swift */,
 			);
 			path = Onboarding;
-			sourceTree = "<group>";
-		};
-		D2FEF451216DD282003E8BD6 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				D2FEF452216DD294003E8BD6 /* MainViewController.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,8 +198,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1BF43C5207108400030848D /* Main.storyboard in Resources */,
-				A1BF43B32070D11E0030848D /* LaunchScreen.storyboard in Resources */,
 				A1BF43B02070D11E0030848D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,40 +256,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */,
-				D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */,
+				A1E6B04F217CBCF400CBD0BF /* AppDelegate.swift in Sources */,
 				A1BF43AB2070D11C0030848D /* ViewController.m in Sources */,
+				A1B789532110C7D700FB6CF1 /* blindassist.c in Sources */,
+				A1BF43C02070D1540030848D /* CameraPreviewView.m in Sources */,
+				D27570A12160F35C00DF9C94 /* PagerView.swift in Sources */,
+				A1857D7D217DDCB6004C31CC /* ViewControllerExtension.swift in Sources */,
+				D27570A32160F3FF00DF9C94 /* PageView.swift in Sources */,
 				D275709F2160F34800DF9C94 /* OnboardingViewController.swift in Sources */,
-				A1ECA713216C882A0021A0DF /* blindassist.c in Sources */,
-				A1BF43B62070D11E0030848D /* main.m in Sources */,
 				A153DB9B207352DD00645AA0 /* Utils.m in Sources */,
-				D2FEF453216DD294003E8BD6 /* MainViewController.swift in Sources */,
 				A1BF43BF2070D1540030848D /* cityscapes.mlmodel in Sources */,
-				A1BF43A82070D11C0030848D /* AppDelegate.m in Sources */,
-				A1ECA712216C882A0021A0DF /* CameraPreviewView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		A1BF43B12070D11E0030848D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A1BF43B22070D11E0030848D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		A1BF43C3207108400030848D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A1BF43C4207108400030848D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		A1BF43B72070D11E0030848D /* Debug */ = {
@@ -431,17 +390,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				COREML_CODEGEN_LANGUAGE = "Objective-C";
+				DEVELOPMENT_TEAM = 6Q9K4M2G5A;
 				GCC_OPTIMIZATION_LEVEL = 2;
 				INFOPLIST_FILE = BlindAssist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blindassist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -453,17 +412,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				COREML_CODEGEN_LANGUAGE = "Objective-C";
+				DEVELOPMENT_TEAM = 6Q9K4M2G5A;
 				GCC_OPTIMIZATION_LEVEL = 2;
 				INFOPLIST_FILE = BlindAssist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.giovanniterlingen.BlindAssist;
+				PRODUCT_BUNDLE_IDENTIFIER = org.blindassist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "BlindAssist/BlindAssist-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,5 +1,4 @@
 # BlindAssist
-[![Build Status](https://app.bitrise.io/app/8cef371afcc71242/status.svg?token=shtpwFUA6aLw-ky-oBJP2g&branch=develop)](https://app.bitrise.io/app/8cef371afcc71242)
 [![Build Status](https://travis-ci.com/BlindAssist/blindassist-ios.svg?branch=develop)](https://travis-ci.com/BlindAssist/blindassist-ios)
 [![Stars](http://starveller.sigsev.io/api/repos/BlindAssist/blindassist-ios/badge)](http://starveller.sigsev.io/BlindAssist/blindassist-ios)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)

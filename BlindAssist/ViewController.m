@@ -10,6 +10,7 @@
 
 #import "cityscapes.h"
 #import "ViewController.h"
+#import "BlindAssist-Swift.h"
 
 #include "blindassist.h"
 
@@ -27,6 +28,11 @@ UInt64 LastPredicitionTime;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _cameraPreview = [[CameraPreviewView alloc] init];
+    _predictionView = [[UIImageView alloc] init];
+    
+    [ViewControllerExtension setupWithView:self.view cameraPreviewView:_cameraPreview predictionView:_predictionView];
     
     [self setTts:[[AVSpeechSynthesizer alloc] init]];
     [self speak:@"Initializing application"];
