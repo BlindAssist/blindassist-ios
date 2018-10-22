@@ -27,7 +27,6 @@ final class InferenceViewController: UIViewController {
     private let GravityCheckInterval: TimeInterval = 1.0
     private let PredictionInterval: TimeInterval = 3.0
     
-    // MARK: - Init
     required init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -36,15 +35,11 @@ final class InferenceViewController: UIViewController {
         fatalError()
     }
     
-    // MARK: - Life cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
         setupConstraints()
     }
-    
-    // MARK: - Setup
     
     private func setup() {
         view.backgroundColor = .white
