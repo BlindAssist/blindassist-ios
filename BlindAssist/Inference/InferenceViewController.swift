@@ -142,6 +142,9 @@ final class InferenceViewController: UIViewController {
         let currentTime = Date().timeIntervalSince1970
 
         if (lastPredictionTime == 0 || (currentTime - lastPredictionTime) > PredictionInterval) {
+            // Clear tts queue
+            tts.stopSpeaking(at: .word)
+            
             if information.poles_detected > 0 {
                 speak("Poles detected.")
             }
@@ -162,8 +165,8 @@ final class InferenceViewController: UIViewController {
         }
     }
     
-    func speak(_ string: String?) {
-        let utterance = AVSpeechUtterance(string: string ?? "")
+    func speak(_ string: String) {
+        let utterance = AVSpeechUtterance(string: string)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         utterance.rate = AVSpeechUtteranceMaximumSpeechRate * 0.60
         tts.speak(utterance)
