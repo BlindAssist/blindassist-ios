@@ -1,6 +1,5 @@
 # BlindAssist
 [![Build Status](https://travis-ci.com/BlindAssist/blindassist-ios.svg?branch=develop)](https://travis-ci.com/BlindAssist/blindassist-ios)
-[![Stars](http://starveller.sigsev.io/api/repos/BlindAssist/blindassist-ios/badge)](http://starveller.sigsev.io/BlindAssist/blindassist-ios)
 [![License](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
 
 BlindAssist is an iOS application which has the goal to support blind people
