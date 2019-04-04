@@ -4,7 +4,7 @@ xcode_scheme: BlindAssist
 osx_image: xcode10.2
 
 before_install:
-  - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
+  - gem install cocoapods
   - pod --version
 install:
   - pod install --repo-update
