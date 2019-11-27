@@ -1,7 +1,7 @@
 language: objective-c
 xcode_project: BlindAssist.xcodeproj
 xcode_scheme: BlindAssist
-osx_image: xcode10.2
+osx_image: xcode11.2
 
 before_install:
   - gem install cocoapods
